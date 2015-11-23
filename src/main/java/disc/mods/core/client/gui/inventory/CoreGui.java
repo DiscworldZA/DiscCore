@@ -3,6 +3,7 @@ package disc.mods.core.client.gui.inventory;
 import java.awt.Color;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
@@ -19,18 +20,34 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.FMLClientHandler;
 import disc.mods.core.references.Textures;
 import disc.mods.core.tile.CoreTileEntity;
+import disc.mods.core.tile.CoreTileEntityInventory;
 import disc.mods.core.utils.BlockOrientationHelper;
 
 public abstract class CoreGui extends GuiContainer
 {
-	CoreTileEntity tile;
+	protected CoreTileEntity tile;
 
-	public CoreGui(Container container)
+	public CoreGui()
 	{
-		super(container);
+		super(new Container()
+		{
+
+			@Override
+			public boolean canInteractWith(EntityPlayer p_75145_1_)
+			{
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
 	}
 
-	public abstract CoreGui NewInstance(InventoryPlayer player, CoreTileEntity tile);
+	public CoreGui(Container container, CoreTileEntityInventory tile)
+	{
+		super(container);
+		this.tile = tile;
+	}
+
+	public abstract CoreGui NewInstance(InventoryPlayer player, CoreTileEntityInventory tile);
 
 	public <T> T GetTileEntity()
 	{
@@ -48,7 +65,8 @@ public abstract class CoreGui extends GuiContainer
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
-		if (this.tile != null) this.drawTitle(tile.getName());
+		if (this.tile != null)
+			this.drawTitle(tile.getName());
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package disc.mods.core.inventory;
 
 import disc.mods.core.tile.CoreTileEntity;
+import disc.mods.core.tile.CoreTileEntityInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,7 +15,11 @@ public abstract class CoreContainer extends Container
 	public int InventoryRowsPlayer = 3;
 	public int InventoryColumnsPlayer = 9;
 
-	public CoreContainer(InventoryPlayer inventory, CoreTileEntity tile)
+	public CoreContainer()
+	{
+	}
+
+	public CoreContainer(InventoryPlayer inventory, CoreTileEntityInventory tile)
 	{
 		this.tile = tile;
 		this.drawInv(inventory, 0, 0);
@@ -33,7 +38,7 @@ public abstract class CoreContainer extends Container
 		return null;
 	}
 
-	public abstract CoreContainer NewInstance(InventoryPlayer inventory, CoreTileEntity tile);
+	public abstract CoreContainer NewInstance(InventoryPlayer inventory, CoreTileEntityInventory tile);
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player)

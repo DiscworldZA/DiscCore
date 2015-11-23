@@ -12,12 +12,13 @@ import cpw.mods.fml.common.network.IGuiHandler;
 import disc.mods.core.client.gui.inventory.CoreGui;
 import disc.mods.core.inventory.CoreContainer;
 import disc.mods.core.tile.CoreTileEntity;
+import disc.mods.core.tile.CoreTileEntityInventory;
 
 public abstract class GuiHandler implements IGuiHandler
 {
 	private HashMap<Integer, CoreContainer> containers = new HashMap<Integer, CoreContainer>();
 	private HashMap<Integer, CoreGui> guis = new HashMap<Integer, CoreGui>();
-	private static int id = 1;
+	private static int id = 0;
 
 	public GuiHandler()
 	{
@@ -37,9 +38,9 @@ public abstract class GuiHandler implements IGuiHandler
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if (tile instanceof CoreTileEntity)
+		if (tile instanceof CoreTileEntityInventory)
 		{
-			CoreTileEntity cte = (CoreTileEntity) tile;
+			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;
 			return containers.get(ID).NewInstance(player.inventory, cte);
 		}
 		return null;
@@ -49,9 +50,9 @@ public abstract class GuiHandler implements IGuiHandler
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity tile = world.getTileEntity(x, y, z);
-		if (tile instanceof CoreTileEntity)
+		if (tile instanceof CoreTileEntityInventory)
 		{
-			CoreTileEntity cte = (CoreTileEntity) tile;
+			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;
 			return guis.get(ID).NewInstance(player.inventory, cte);
 		}
 		return null;

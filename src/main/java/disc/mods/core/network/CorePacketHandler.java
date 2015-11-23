@@ -13,7 +13,7 @@ import cpw.mods.fml.relauncher.Side;
 import disc.mods.core.references.Names;
 import disc.mods.core.utils.DimensionHelper;
 
-public abstract class PacketHandler
+public abstract class CorePacketHandler
 {
 	public static final SimpleNetworkWrapper SimpleNetwork = NetworkRegistry.INSTANCE.newSimpleChannel(Names.Mod.ID.toLowerCase());
 	public static int discriminator = 0;

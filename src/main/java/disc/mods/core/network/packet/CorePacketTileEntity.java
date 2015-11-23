@@ -4,16 +4,16 @@ import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import disc.mods.core.tile.CoreTileEntity;
 
-public abstract class PacketTileEntity implements IMessage
+public abstract class CorePacketTileEntity implements IMessage
 {
 	public int x, y, z, meta;
 
-	public PacketTileEntity()
+	public CorePacketTileEntity()
 	{
 
 	}
 
-	public PacketTileEntity(CoreTileEntity tile)
+	public CorePacketTileEntity(CoreTileEntity tile)
 	{
 		this.x = tile.xCoord;
 		this.y = tile.yCoord;
