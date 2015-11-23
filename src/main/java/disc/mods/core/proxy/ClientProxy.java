@@ -11,13 +11,13 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void initRenderingAndTextures()
 	{
-
+		
 	}
 
 	@Override
 	public void registerKeybindings()
 	{
-
+		
 	}
 
 	@Override

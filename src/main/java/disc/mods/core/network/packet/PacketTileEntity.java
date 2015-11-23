@@ -1,41 +1,42 @@
 package disc.mods.core.network.packet;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import disc.mods.core.tile.CoreTileEntity;
 
-public class PacketTileEntity implements IMessage
+public abstract class PacketTileEntity implements IMessage
 {
-	
-	public int x, y, z;
-	
+	public int x, y, z, meta;
+
 	public PacketTileEntity()
 	{
-		
+
 	}
-	
-	public PacketTileEntity(TileEntity tile)
+
+	public PacketTileEntity(CoreTileEntity tile)
 	{
-        this.x = tile.xCoord;
-        this.y = tile.yCoord;
-        this.z = tile.zCoord;;
+		this.x = tile.xCoord;
+		this.y = tile.yCoord;
+		this.z = tile.zCoord;
+		this.meta = tile.getBlockMetadata();
 	}
-	
 
 	@Override
-    public void fromBytes(ByteBuf buf)
-    {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
-    }
+	public void fromBytes(ByteBuf buf)
+	{
+		this.x = buf.readInt();
+		this.y = buf.readInt();
+		this.z = buf.readInt();
+		this.meta = buf.readInt();
+	}
 
 	@Override
-    public void toBytes(ByteBuf buf)
-    {
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
-    }
+	public void toBytes(ByteBuf buf)
+	{
+		buf.writeInt(x);
+		buf.writeInt(y);
+		buf.writeInt(z);
+		buf.writeInt(meta);
+	}
 
 }

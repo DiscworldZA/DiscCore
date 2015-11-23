@@ -9,7 +9,7 @@ public class DiscCore
 {
 	@Instance(Names.Mod.ID)
 	public static DiscCore instance;
-	
+
 	public static DiscCore getInstance()
 	{
 		return instance;

@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import disc.mods.core.helpers.BlockHelper;
 import disc.mods.core.references.Values;
+import disc.mods.core.utils.BlockOrientationHelper;
 
 public abstract class CoreBlock extends Block
 {
@@ -68,9 +68,9 @@ public abstract class CoreBlock extends Block
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLivingBase, ItemStack itemStack)
 	{
-		ForgeDirection direction = BlockHelper.determineOrientation(x, y, z, entityLivingBase);
+		ForgeDirection direction = BlockOrientationHelper.determineOrientation(x, y, z, entityLivingBase);
 		int meta = world.getBlockMetadata(x, y, z);
-		world.setBlockMetadataWithNotify(x, y, z, BlockHelper.setOrientation(meta, direction), 2);
+		world.setBlockMetadataWithNotify(x, y, z, BlockOrientationHelper.setOrientation(meta, direction), 2);
 	}
 
 	protected void dropInventory(World world, int x, int y, int z)

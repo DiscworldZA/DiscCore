@@ -1,10 +1,10 @@
-package disc.mods.core.helpers;
+package disc.mods.core.utils;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class BlockHelper
+public class BlockOrientationHelper
 {
 	
 	public static final int MASK_REDSTONE = 0x8;
