@@ -39,9 +39,9 @@ public abstract class CoreTileEntity extends TileEntity
 		return name;
 	}
 
-	public void setName(String name)
+	public void setName(String name, String ModID)
 	{
-		this.name = "container." + Names.Mod.ID + "." + name;
+		this.name = "container." + ModID + "." + name;
 	}
 
 	public String getCustomName()
