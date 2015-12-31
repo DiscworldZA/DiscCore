@@ -24,7 +24,6 @@ public abstract class CoreBlock extends Block
 	public CoreBlock()
 	{
 		this(Material.rock);
-		this.setHardness(Values.Block.Hardness);
 	}
 
 	public CoreBlock(Material material)

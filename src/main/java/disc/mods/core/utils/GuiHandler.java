@@ -27,11 +27,12 @@ public abstract class GuiHandler implements IGuiHandler
 
 	public abstract void RegisterIDs();
 
-	public void RegisterID(CoreGui gui, CoreContainer container)
+	public int RegisterID(CoreGui gui, CoreContainer container)
 	{
 		int ID = id++;
 		containers.put(ID, container);
 		guis.put(ID, gui);
+		return ID;
 	}
 
 	@Override
