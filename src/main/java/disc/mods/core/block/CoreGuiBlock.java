@@ -9,14 +9,14 @@ public abstract class CoreGuiBlock extends CoreBlock
 {
 	protected int GuiID;
 
-	public CoreGuiBlock()
+	public CoreGuiBlock(String Name)
 	{
-		super(Material.iron);
+		super(Material.IRON, Name);
 	}
 
-	public CoreGuiBlock(Material mat)
+	public CoreGuiBlock(Material mat, String Name)
 	{
-		super(mat);
+		super(mat, Name);
 	}
 
 	public void SetGuiID(int ID)

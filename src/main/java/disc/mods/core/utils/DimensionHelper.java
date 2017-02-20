@@ -11,8 +11,11 @@ public class DimensionHelper
 		{
 			for (int i : DimensionManager.getIDs())
 			{
-				WorldProvider provider;
-				if ((provider = DimensionManager.getProvider(i)).getDimensionName().equals(Name)) { return provider.dimensionId; }
+				WorldProvider provider = DimensionManager.getProvider(i);
+				if(Name.equals(provider.getDimensionType().getName()))
+				{
+					return provider.getDimension();
+				}
 			}
 			throw new Exception("Dimension not found");
 		}

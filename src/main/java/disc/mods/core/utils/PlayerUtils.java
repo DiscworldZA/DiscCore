@@ -1,15 +1,15 @@
 package disc.mods.core.utils;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
-import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraft.util.text.TextComponentString;
 
 public class PlayerUtils
 {
 	public static void sendMessage(EntityPlayer player, String msg)
 	{
-		player.addChatComponentMessage(new ChatComponentText(msg));
+		player.sendMessage(new TextComponentString(msg));
 	}
 
 	public static boolean isCreative(EntityPlayer player)
@@ -19,9 +19,9 @@ public class PlayerUtils
 
 	public static class Inventory
 	{
-		public static void SetCurrentItem(EntityPlayer player, ItemStack item)
+		public static void SetItem(EntityPlayer player, ItemStack item, EntityEquipmentSlot slot)
 		{
-			player.setCurrentItemOrArmor(0, item);
+			player.setItemStackToSlot(slot, item);
 		}
 	}
 }

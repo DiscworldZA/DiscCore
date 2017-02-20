@@ -9,14 +9,14 @@ import net.minecraft.world.World;
 
 public abstract class CoreBlockTileEntity extends CoreGuiBlock implements ITileEntityProvider
 {
-	public CoreBlockTileEntity()
+	public CoreBlockTileEntity(String Name)
 	{
-		this(Material.iron);
+		this(Material.IRON, Name);
 	}
 
-	public CoreBlockTileEntity(Material mat)
+	public CoreBlockTileEntity(Material mat, String Name)
 	{
-		super(mat);
+		super(mat, Name);
 		this.setHardness(Values.Block.Hardness);
 	}
 

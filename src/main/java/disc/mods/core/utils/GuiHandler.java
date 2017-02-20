@@ -2,17 +2,14 @@ package disc.mods.core.utils;
 
 import java.util.HashMap;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
-import cpw.mods.fml.common.network.IGuiHandler;
 import disc.mods.core.client.gui.inventory.CoreGui;
 import disc.mods.core.inventory.CoreContainer;
-import disc.mods.core.tile.CoreTileEntity;
 import disc.mods.core.tile.CoreTileEntityInventory;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public abstract class GuiHandler implements IGuiHandler
 {
@@ -38,7 +35,7 @@ public abstract class GuiHandler implements IGuiHandler
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		if (tile instanceof CoreTileEntityInventory)
 		{
 			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;
@@ -50,7 +47,7 @@ public abstract class GuiHandler implements IGuiHandler
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
-		TileEntity tile = world.getTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		if (tile instanceof CoreTileEntityInventory)
 		{
 			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;

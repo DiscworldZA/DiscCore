@@ -3,6 +3,7 @@ package disc.mods.core.proxy;
 import disc.mods.core.init.CoreBlocks;
 import disc.mods.core.init.CoreItems;
 import disc.mods.core.ref.References;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
