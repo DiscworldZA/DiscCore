@@ -1,7 +1,8 @@
 package disc.mods.core.network.packet;
 
 import io.netty.buffer.ByteBuf;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import disc.mods.core.tile.CoreTileEntity;
 
 public abstract class CorePacketTileEntity implements IMessage
@@ -15,9 +16,9 @@ public abstract class CorePacketTileEntity implements IMessage
 
 	public CorePacketTileEntity(CoreTileEntity tile)
 	{
-		this.x = tile.xCoord;
-		this.y = tile.yCoord;
-		this.z = tile.zCoord;
+		this.x = tile.getPos().getX();
+		this.y = tile.getPos().getY();
+		this.z = tile.getPos().getZ();;
 		this.meta = tile.getBlockMetadata();
 	}
 

@@ -2,26 +2,20 @@ package disc.mods.core.client.gui.inventory;
 
 import java.awt.Color;
 
+import org.lwjgl.opengl.GL11;
+
+import disc.mods.core.ref.Textures;
+import disc.mods.core.tile.CoreTileEntity;
+import disc.mods.core.tile.CoreTileEntityInventory;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import disc.mods.core.references.Textures;
-import disc.mods.core.tile.CoreTileEntity;
-import disc.mods.core.tile.CoreTileEntityInventory;
-import disc.mods.core.utils.BlockOrientationHelper;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 public abstract class CoreGui extends GuiContainer
 {
@@ -82,7 +76,7 @@ public abstract class CoreGui extends GuiContainer
 
 	public void drawTitle(String title)
 	{
-		fontRendererObj.drawString(StatCollector.translateToLocal(title), 8, 8, Color.darkGray.getRGB());
+		fontRendererObj.drawString(title, 8, 8, Color.darkGray.getRGB());
 	}
 
 	public void drawLiquidBar(TileEntity tank, int xOffset, int yOffset)
@@ -95,7 +89,7 @@ public abstract class CoreGui extends GuiContainer
 		{
 			if (tank instanceof IFluidHandler)
 			{
-				int meta = FMLClientHandler.instance().getClient().theWorld.getBlockMetadata(tank.xCoord, tank.yCoord, tank.zCoord);
+				/*int meta = FMLClientHandler.instance().getClient().theWorld.getBlockState(tank.getPos()).;
 				ForgeDirection facingDir = BlockOrientationHelper.getOrientation(meta);
 				FluidTankInfo[] info = ((IFluidHandler) tank).getTankInfo(facingDir);
 				if (info != null && info.length > 0)
@@ -108,14 +102,15 @@ public abstract class CoreGui extends GuiContainer
 						IIcon fluidIcon = fluid.getIcon();
 						int amount = tankInfo.fluid.amount;
 						int fluidHeight = MathHelper.ceiling_float_int((amount / (float) tankCapacity) * 48);
-						this.mc.getTextureManager().bindTexture(this.mc.getTextureManager().getResourceLocation(fluid.getSpriteNumber()));
+						this.mc.getTextureManager()
+								.bindTexture(this.mc.getTextureManager().getResourceLocation(fluid.getSpriteNumber()));
 						this.drawTexturedModelRectFromIcon(startX + 1, startY + 1, fluidIcon, 16, 16);
 						this.drawTexturedModelRectFromIcon(startX + 1, startY + 1 + 16, fluidIcon, 16, 16);
 						this.drawTexturedModelRectFromIcon(startX + 1, startY + 1 + 32, fluidIcon, 16, 16);
 						this.mc.getTextureManager().bindTexture(Textures.Gui.LiquidBar);
 						this.drawTexturedModalRect(startX, startY, 0, 0, 18, 49 - fluidHeight);
 					}
-				}
+				}*/
 			}
 		}
 		this.mc.getTextureManager().bindTexture(Textures.Gui.LiquidBarOverlay);
@@ -130,3 +125,4 @@ public abstract class CoreGui extends GuiContainer
 		this.drawTexturedModalRect(startX, startY, 0, 0, xSize, ySize);
 	}
 }
+

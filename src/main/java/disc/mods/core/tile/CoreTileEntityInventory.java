@@ -1,11 +1,11 @@
 package disc.mods.core.tile;
 
+import disc.mods.core.ref.Names;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import disc.mods.core.references.Names;
 
 public abstract class CoreTileEntityInventory extends CoreTileEntity implements IInventory
 {
@@ -35,14 +35,14 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 		ItemStack itemStack = getStackInSlot(index);
 		if (itemStack != null)
 		{
-			if (itemStack.stackSize <= amount)
+			if (itemStack.getCount() <= amount)
 			{
 				setInventorySlotContents(index, null);
 			}
 			else
 			{
 				itemStack = itemStack.splitStack(amount);
-				if (itemStack.stackSize == 0)
+				if (itemStack.getCount() == 0)
 				{
 					setInventorySlotContents(index, null);
 				}
@@ -53,28 +53,13 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		if (inventory[index] != null)
-		{
-			ItemStack itemStack = inventory[index];
-			inventory[index] = null;
-			return itemStack;
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
 		inventory[index] = stack;
 
-		if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+		if (stack != null && stack.getCount() > this.getInventoryStackLimit())
 		{
-			stack.stackSize = this.getInventoryStackLimit();
+			stack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();
@@ -82,13 +67,13 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	}
 
 	@Override
-	public String getInventoryName()
+	public String getName()
 	{
 		return this.hasCustomName() ? this.getCustomName() : this.getName();
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
+	public boolean hasCustomName()
 	{
 		return this.hasCustomName();
 	}
@@ -100,24 +85,24 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p_70300_1_)
+	public boolean isUsableByPlayer(EntityPlayer player)
 	{
 		return true;
 	}
 
 	@Override
-	public void openInventory()
+	public void openInventory(EntityPlayer player)
 	{
 		++numUsingPlayers;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.getBlockType(), 1, numUsingPlayers);
+		world.addBlockEvent(this.pos, this.getBlockType(), 1, numUsingPlayers);
 
 	}
 
 	@Override
-	public void closeInventory()
+	public void closeInventory(EntityPlayer player)
 	{
 		--numUsingPlayers;
-		worldObj.addBlockEvent(xCoord, yCoord, zCoord, this.getBlockType(), 1, numUsingPlayers);
+		world.addBlockEvent(this.pos, this.getBlockType(), 1, numUsingPlayers);
 	}
 
 	@Override
@@ -140,13 +125,13 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 			byte slotIndex = tagCompound.getByte("Slot");
 			if (slotIndex >= 0 && slotIndex < inventory.length)
 			{
-				inventory[slotIndex] = ItemStack.loadItemStackFromNBT(tagCompound);
+				inventory[slotIndex] = new ItemStack(tagCompound);
 			}
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbtTagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound)
 	{
 		super.writeToNBT(nbtTagCompound);
 
@@ -163,5 +148,6 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 			}
 		}
 		nbtTagCompound.setTag(Names.NBT.Items, tagList);
+		return nbtTagCompound;
 	}
 }

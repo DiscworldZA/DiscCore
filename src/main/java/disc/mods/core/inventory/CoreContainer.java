@@ -84,27 +84,27 @@ public abstract class CoreContainer extends Container
 
 		if (itemStack.isStackable())
 		{
-			while (itemStack.stackSize > 0 && (!ascending && slotIndex < slotMax || ascending && slotIndex >= slotMin))
+			while (itemStack.getCount() > 0 && (!ascending && slotIndex < slotMax || ascending && slotIndex >= slotMin))
 			{
 				slot = (Slot) this.inventorySlots.get(slotIndex);
 				slotStack = slot.getStack();
 
 				if (slot.isItemValid(itemStack) && itemStack.getItem() == slotStack.getItem())
 				{
-					int combinedStackSize = slotStack.stackSize + itemStack.stackSize;
+					int combinedStackSize = slotStack.getCount() + itemStack.getCount();
 					int slotStackSizeLimit = Math.min(slotStack.getMaxStackSize(), slot.getSlotStackLimit());
 
 					if (combinedStackSize <= slotStackSizeLimit)
 					{
-						itemStack.stackSize = 0;
-						slotStack.stackSize = combinedStackSize;
+						itemStack.setCount(0);
+						slotStack.setCount(combinedStackSize);
 						slot.onSlotChanged();
 						slotFound = true;
 					}
-					else if (slotStack.stackSize < slotStackSizeLimit)
+					else if (slotStack.getCount() < slotStackSizeLimit)
 					{
-						itemStack.stackSize -= slotStackSizeLimit - slotStack.stackSize;
-						slotStack.stackSize = slotStackSizeLimit;
+						itemStack.setCount(slotStackSizeLimit - slotStack.getCount());
+						slotStack.setCount(slotStackSizeLimit);
 						slot.onSlotChanged();
 						slotFound = true;
 					}
@@ -114,7 +114,7 @@ public abstract class CoreContainer extends Container
 			}
 		}
 
-		if (itemStack.stackSize > 0)
+		if (itemStack.getCount() > 0)
 		{
 			slotIndex = ascending ? slotMax - 1 : slotMin;
 
@@ -130,7 +130,7 @@ public abstract class CoreContainer extends Container
 
 					if (slot.getStack() != null)
 					{
-						itemStack.stackSize -= slot.getStack().stackSize;
+						itemStack.setCount(slot.getStack().getCount());
 						slotFound = true;
 					}
 

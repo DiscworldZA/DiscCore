@@ -1,24 +1,24 @@
 package disc.mods.core.network;
 
+import disc.mods.core.helpers.DimensionHelper;
+import disc.mods.core.ref.References;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
-import net.minecraft.world.WorldProvider;
-import net.minecraftforge.common.DimensionManager;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
-import disc.mods.core.references.Names;
-import disc.mods.core.utils.DimensionHelper;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CorePacketHandler
 {
-	public static final SimpleNetworkWrapper SimpleNetwork = NetworkRegistry.INSTANCE.newSimpleChannel(Names.Mod.ID.toLowerCase());
+	public static final SimpleNetworkWrapper SimpleNetwork = NetworkRegistry.INSTANCE
+			.newSimpleChannel(References.Mod.ID.toLowerCase());
 	public static int discriminator = 0;
 
-	public static <REQ extends IMessage, REPLY extends IMessage> void RegisterMessage(Class<? extends IMessageHandler<REQ, REPLY>> c1, Class<REQ> c2, Side side)
+	public static <REQ extends IMessage, REPLY extends IMessage> void RegisterMessage(
+			Class<? extends IMessageHandler<REQ, REPLY>> c1, Class<REQ> c2, Side side)
 	{
 		SimpleNetwork.registerMessage(c1, c2, discriminator, Side.CLIENT);
 		discriminator++;

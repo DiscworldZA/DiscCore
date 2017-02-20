@@ -1,29 +1,21 @@
 package disc.mods.core.proxy;
 
+import disc.mods.core.ref.References;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
 public class ClientProxy extends CommonProxy
 {
-	@Override
-	public void registerEventHandlers()
-	{
-		super.registerEventHandlers();
-	}
-
-	@Override
-	public void initRenderingAndTextures()
+	public void preInit(FMLPreInitializationEvent event)
 	{
 		
 	}
 
-	@Override
-	public void registerKeybindings()
+	public void registerItemRenderer(Item item, int meta, String id)
 	{
-		
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(References.Mod.ID + ":" + id, "inventory"));
 	}
 
-	@Override
-	public void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume, float pitch)
-	{
-		// ClientSoundHelper.playSound(soundName, xCoord, yCoord, zCoord,
-		// volume, pitch);
-	}
 }
