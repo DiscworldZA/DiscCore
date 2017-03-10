@@ -17,48 +17,47 @@ import net.minecraft.world.World;
 
 public abstract class CoreTileEntityBlock extends CoreBlock implements ITileEntityProvider
 {
-	public static final PropertyDirection FACING = PropertyDirection.create(Names.NBT.Direction,
-			EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create(Names.NBT.Direction, EnumFacing.Plane.HORIZONTAL);
 
-	public CoreTileEntityBlock(Material material, String Name)
-	{
-		super(material, Name);
-	}
+    public CoreTileEntityBlock(Material material, String Name)
+    {
+        super(material, Name);
+    }
 
-	public CoreTileEntityBlock(String Name)
-	{
-		super(Name);
-	}
+    public CoreTileEntityBlock(String Name)
+    {
+        super(Name);
+    }
 
-	@Override
-	public abstract TileEntity createNewTileEntity(World worldIn, int meta);
+    @Override
+    public abstract TileEntity createNewTileEntity(World worldIn, int meta);
 
-	public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos)
-	{
-		return (T) world.getTileEntity(pos);
-	}
+    public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos)
+    {
+        return (T) world.getTileEntity(pos);
+    }
 
-	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-	{
-		world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-	}
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+    {
+        world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+    }
 
-	@Override
-	public IBlockState getStateFromMeta(int meta)
-	{
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
-	}
+    @Override
+    public IBlockState getStateFromMeta(int meta)
+    {
+        return getDefaultState().withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state)
-	{
-		return state.getValue(FACING).getIndex() - 2;
-	}
+    @Override
+    public int getMetaFromState(IBlockState state)
+    {
+        return state.getValue(FACING).getIndex() - 2;
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState()
-	{
-		return new BlockStateContainer(this, FACING);
-	}
+    @Override
+    protected BlockStateContainer createBlockState()
+    {
+        return new BlockStateContainer(this, FACING);
+    }
 }

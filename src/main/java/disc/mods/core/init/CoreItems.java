@@ -8,20 +8,20 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CoreItems
 {
 
-	public static void init()
-	{
-	}
+    public static void init()
+    {
+    }
 
-	private static <T extends Item> T register(T item)
-	{
-		GameRegistry.register(item);
+    protected static <T extends Item> T register(T item)
+    {
+        GameRegistry.register(item);
 
-		if (item instanceof CoreItem)
-		{
-			((CoreItem) item).registerItemModel();
-		}
+        if (item instanceof CoreItem)
+        {
+            ((CoreItem) item).registerItemModel();
+        }
 
-		return item;
-	}
+        return item;
+    }
 
 }

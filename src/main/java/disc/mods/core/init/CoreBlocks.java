@@ -9,33 +9,33 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CoreBlocks
 {
-	public static CoreBlock TestBlock;
+    public static CoreBlock TestBlock;
 
-	public static void init()
-	{
-		if (CoreSettings.Debug.EnableTestBlock.Value)
-		{
-			TestBlock = register(new TestBlock());
-		}
-	}
+    public static void init()
+    {
+        if (CoreSettings.Debug.EnableTestBlock.Value)
+        {
+            TestBlock = register(new TestBlock());
+        }
+    }
 
-	private static <T extends Block> T register(T block, ItemBlock itemBlock)
-	{
-		Registrar.Register(block);
-		Registrar.Register(itemBlock);
+    protected static <T extends Block> T register(T block, ItemBlock itemBlock)
+    {
+        Registrar.Register(block);
+        Registrar.Register(itemBlock);
 
-		if (block instanceof CoreBlock)
-		{
-			((CoreBlock) block).registerItemModel(itemBlock);
-		}
+        if (block instanceof CoreBlock)
+        {
+            ((CoreBlock) block).registerItemModel(itemBlock);
+        }
 
-		return block;
-	}
+        return block;
+    }
 
-	private static <T extends Block> T register(T block)
-	{
-		ItemBlock itemBlock = new ItemBlock(block);
-		itemBlock.setRegistryName(block.getRegistryName());
-		return register(block, itemBlock);
-	}
+    protected static <T extends Block> T register(T block)
+    {
+        ItemBlock itemBlock = new ItemBlock(block);
+        itemBlock.setRegistryName(block.getRegistryName());
+        return register(block, itemBlock);
+    }
 }

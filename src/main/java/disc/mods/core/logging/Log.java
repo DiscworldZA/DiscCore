@@ -8,7 +8,7 @@ public class Log
 	
 	public Log(Logger Logger)
 	{
-		this.Logger = Logger;
+	    this.Logger = Logger;
 	}
 
 }

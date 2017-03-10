@@ -8,14 +8,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy
 {
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		
-	}
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        setModId(event.getModMetadata().modId);
+    }
 
-	public void registerItemRenderer(Item item, int meta, String id)
-	{
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(References.Mod.ID + ":" + id, "inventory"));
-	}
+    public void registerItemRenderer(Item item, int meta, String id)
+    {
+        ModelLoader.setCustomModelResourceLocation(item, meta,
+                new ModelResourceLocation(getModId() + ":" + id, "inventory"));
+    }
 
 }

@@ -15,20 +15,32 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CommonProxy
 {
 
-	public void registerItemRenderer(Item item, int meta, String id)
-	{
-	}
+    private String ModId;
 
-	public void preInit(FMLPreInitializationEvent event)
-	{
-	}
+    public void registerItemRenderer(Item item, int meta, String id)
+    {
+    }
 
-	public void Init(FMLInitializationEvent event)
-	{
-	}
+    public void preInit(FMLPreInitializationEvent event)
+    {
+    }
 
-	public void postInit(FMLPostInitializationEvent event)
-	{
-	}
+    public void init(FMLInitializationEvent event)
+    {
+    }
+
+    public void postInit(FMLPostInitializationEvent event)
+    {
+    }
+
+    public String getModId()
+    {
+        return ModId;
+    }
+
+    public void setModId(String modId)
+    {
+        ModId = modId;
+    }
 
 }

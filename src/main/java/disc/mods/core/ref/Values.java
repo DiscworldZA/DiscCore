@@ -1,4 +1,4 @@
-package disc.mods.core.references;
+package disc.mods.core.ref;
 
 public class Values
 {

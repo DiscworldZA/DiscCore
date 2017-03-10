@@ -11,21 +11,20 @@ import net.minecraft.world.World;
 
 public class CoreBlockGui extends CoreBlock
 {
-	public CoreBlockGui(Material materialIn, String Name)
-	{
-		super(materialIn, Name);
-	}
+    public CoreBlockGui(Material materialIn, String Name)
+    {
+        super(materialIn, Name);
+    }
 
-	public CoreBlockGui(String Name)
-	{
-		super(Name);
-	}
+    public CoreBlockGui(String Name)
+    {
+        super(Name);
+    }
 
-	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
-	{
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+    {
 
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
-	}
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, side, hitX, hitY, hitZ);
+    }
 }

@@ -11,26 +11,26 @@ import scala.reflect.macros.Universe.RunContextApi;
 
 public class CoreConfig extends Configuration
 {
-	public static CoreConfig GetConfig()
-	{
-		return DiscCore.instance.config;
-	}
-	
-	public CoreConfig(File file)
-	{
-		super(file);
-	}
-	
-	public void preInit(FMLPreInitializationEvent event)
-	{
-		CoreSettings.Load(this);
-	}
-	
-	public void postInit(FMLPostInitializationEvent event)
-	{
-		if(this.hasChanged())
-		{
-			this.save();
-		}
-	}
+    public static CoreConfig GetConfig()
+    {
+        return DiscCore.instance.config;
+    }
+
+    public CoreConfig(File file)
+    {
+        super(file);
+    }
+
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        CoreSettings.Load(this);
+    }
+
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        if (this.hasChanged())
+        {
+            this.save();
+        }
+    }
 }

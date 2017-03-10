@@ -5,94 +5,91 @@ import disc.mods.core.ref.References;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class CoreTileEntity extends TileEntity
+public abstract class CoreTileEntity extends TileEntity implements ITickable
 {
-	public String name;
-	public String customName;
-	public String owner;
-	
-	public CoreTileEntity()
-	{
-	}
-	
-	public void Register()
-	{
-        GameRegistry.registerTileEntity(this.getClass(), References.Mod.ID + "_" + name);
-	}
-	
-	@Override
-	public void readFromNBT(NBTTagCompound nbtTagCompound)
-	{
-		super.readFromNBT(nbtTagCompound);
+    public String name;
+    public String customName;
+    public String owner;
 
-		if (nbtTagCompound.hasKey(Names.NBT.CustomName))
-		{
-			this.customName = nbtTagCompound.getString(Names.NBT.CustomName);
-		}
+    public CoreTileEntity()
+    {
+    }
 
-		if (nbtTagCompound.hasKey(Names.NBT.Owner))
-		{
-			this.owner = nbtTagCompound.getString(Names.NBT.Owner);
-		}
-	}
+    public abstract void Register();
 
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound)
-	{
-		super.writeToNBT(nbtTagCompound);
+    @Override
+    public void readFromNBT(NBTTagCompound nbtTagCompound)
+    {
+        super.readFromNBT(nbtTagCompound);
 
+        if (nbtTagCompound.hasKey(Names.NBT.CustomName))
+        {
+            this.customName = nbtTagCompound.getString(Names.NBT.CustomName);
+        }
 
-		if (this.hasCustomName())
-		{
-			nbtTagCompound.setString(Names.NBT.CustomName, customName);
-		}
+        if (nbtTagCompound.hasKey(Names.NBT.Owner))
+        {
+            this.owner = nbtTagCompound.getString(Names.NBT.Owner);
+        }
+    }
 
-		if (this.hasOwner())
-		{
-			nbtTagCompound.setString(Names.NBT.Owner, owner);
-		}
-		return nbtTagCompound;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound)
+    {
+        super.writeToNBT(nbtTagCompound);
 
-	public void setName(String name, String ModID)
-	{
-		this.name = "container." + ModID + "." + name;
-	}
+        if (this.hasCustomName())
+        {
+            nbtTagCompound.setString(Names.NBT.CustomName, customName);
+        }
 
-	public String getCustomName()
-	{
-		return customName;
-	}
+        if (this.hasOwner())
+        {
+            nbtTagCompound.setString(Names.NBT.Owner, owner);
+        }
+        return nbtTagCompound;
+    }
 
-	public void setCustomName(String customName)
-	{
-		this.customName = customName;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public String getOwner()
-	{
-		return owner;
-	}
+    public void setName(String name, String ModID)
+    {
+        this.name = "container." + ModID + "." + name;
+    }
 
-	public void setOwner(String owner)
-	{
-		this.owner = owner;
-	}
-	
-	public boolean hasCustomName()
-	{
-		return customName != null && customName.length() > 0;
-	}
+    public String getCustomName()
+    {
+        return customName;
+    }
 
-	public boolean hasOwner()
-	{
-		return owner != null && owner.length() > 0;
-	}
+    public void setCustomName(String customName)
+    {
+        this.customName = customName;
+    }
+
+    public String getOwner()
+    {
+        return owner;
+    }
+
+    public void setOwner(String owner)
+    {
+        this.owner = owner;
+    }
+
+    public boolean hasCustomName()
+    {
+        return customName != null && customName.length() > 0;
+    }
+
+    public boolean hasOwner()
+    {
+        return owner != null && owner.length() > 0;
+    }
 }
