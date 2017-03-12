@@ -15,22 +15,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class CoreTileEntityBlock extends CoreBlock implements ITileEntityProvider
+public abstract class CoreTileEntityBlock extends CoreBlock
 {
     public static final PropertyDirection FACING = PropertyDirection.create(Names.NBT.Direction, EnumFacing.Plane.HORIZONTAL);
 
     public CoreTileEntityBlock(Material material, String Name)
     {
         super(material, Name);
+        this.setDefaultState(this.blockState.getBaseState());
     }
 
     public CoreTileEntityBlock(String Name)
     {
         super(Name);
+        this.setDefaultState(this.blockState.getBaseState());
     }
 
     @Override
-    public abstract TileEntity createNewTileEntity(World worldIn, int meta);
+    public abstract TileEntity createTileEntity(World world, IBlockState state);
 
     public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos)
     {

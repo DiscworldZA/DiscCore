@@ -14,10 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class CommonProxy
 {
-
     private String ModId;
 
-    public void registerItemRenderer(Item item, int meta, String id)
+    public void registerItemRenderer(Item item, int meta)
     {
     }
 

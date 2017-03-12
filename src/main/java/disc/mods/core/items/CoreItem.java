@@ -19,7 +19,7 @@ public class CoreItem extends Item
 
     public void registerItemModel()
     {
-        DiscCore.proxy.registerItemRenderer(this, 0, name);
+        DiscCore.proxy.registerItemRenderer(this, 0);
     }
 
     @Override

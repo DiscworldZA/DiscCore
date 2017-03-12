@@ -28,7 +28,7 @@ public abstract class CoreBlock extends Block
 
     public void registerItemModel(ItemBlock itemBlock)
     {
-        DiscCore.proxy.registerItemRenderer(itemBlock, 0, Name);
+        DiscCore.proxy.registerItemRenderer(itemBlock, 0);
     }
 
     @Override

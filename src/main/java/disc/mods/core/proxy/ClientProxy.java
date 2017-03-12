@@ -13,10 +13,9 @@ public class ClientProxy extends CommonProxy
         setModId(event.getModMetadata().modId);
     }
 
-    public void registerItemRenderer(Item item, int meta, String id)
+    public void registerItemRenderer(Item item, int meta)
     {
-        ModelLoader.setCustomModelResourceLocation(item, meta,
-                new ModelResourceLocation(getModId() + ":" + id, "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), "direction=north"));
     }
 
 }

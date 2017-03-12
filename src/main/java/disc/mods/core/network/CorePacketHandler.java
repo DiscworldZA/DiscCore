@@ -16,26 +16,33 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public abstract class CorePacketHandler
 {
-    public static final SimpleNetworkWrapper SimpleNetwork = NetworkRegistry.INSTANCE.newSimpleChannel(References.Mod.ID.toLowerCase());
-    public static int discriminator = 0;
+    public final SimpleNetworkWrapper SimpleNetwork;
+    public int discriminator = 0;
 
-    public static <REQ extends IMessage, REPLY extends IMessage> void RegisterMessage(Class<? extends IMessageHandler<REQ, REPLY>> c1, Class<REQ> c2, Side side)
+    public CorePacketHandler()
     {
-        SimpleNetwork.registerMessage(c1, c2, discriminator, Side.CLIENT);
+        SimpleNetwork = NetworkRegistry.INSTANCE.newSimpleChannel(getModId().toLowerCase());
+    }
+
+    public abstract String getModId();
+
+    public <REQ extends IMessage, REPLY extends IMessage> void RegisterMessage(Class<? extends IMessageHandler<REQ, REPLY>> c1, Class<REQ> c2, Side side)
+    {
+        SimpleNetwork.registerMessage(c1, c2, discriminator, side);
         discriminator++;
     }
 
-    public static void sendToServer(IMessage message)
+    public void sendToServer(IMessage message)
     {
         SimpleNetwork.sendToServer(message);
     }
 
-    public static void sendToAll(IMessage message)
+    public void sendToAll(IMessage message)
     {
         SimpleNetwork.sendToAll(message);
     }
 
-    public static void SendToEntity(IMessage message, EntityPlayerMP player)
+    public void SendToEntity(IMessage message, EntityPlayerMP player)
     {
         SimpleNetwork.sendTo(message, player);
     }
@@ -47,32 +54,32 @@ public abstract class CorePacketHandler
      * @see <a href=
      *      "https://github.com/gigaherz/Ender-Rift/blob/master/src/main/java/gigaherz/enderRift/generator/ContainerGenerator.java#L68-L69">link</a>
      */
-    public static void SendToEntityListeners(IMessage message, List<IContainerListener> listeners)
+    public void SendToEntityListeners(IMessage message, List<IContainerListener> listeners)
     {
         listeners.stream().filter(watcher -> watcher instanceof EntityPlayerMP).forEach(watcher -> SimpleNetwork.sendTo(message, (EntityPlayerMP) watcher));
     }
 
-    public static void sendToDimension(IMessage message, int dimensionId)
+    public void sendToDimension(IMessage message, int dimensionId)
     {
         SimpleNetwork.sendToDimension(message, dimensionId);
     }
 
-    public static void sendToDimension(IMessage message, String DimensionName)
+    public void sendToDimension(IMessage message, String DimensionName)
     {
         SimpleNetwork.sendToDimension(message, DimensionHelper.GetDimensionIDFromName(DimensionName));
     }
 
-    public static void sendToAllAround(IMessage message, TargetPoint point)
+    public void sendToAllAround(IMessage message, TargetPoint point)
     {
         SimpleNetwork.sendToAllAround(message, point);
     }
 
-    public static void sendToAllAround(IMessage message, int dimension, double x, double y, double z, double range)
+    public void sendToAllAround(IMessage message, int dimension, double x, double y, double z, double range)
     {
         SimpleNetwork.sendToAllAround(message, new TargetPoint(dimension, x, y, z, range));
     }
 
-    public static Packet getPacketFrom(IMessage message)
+    public Packet getPacketFrom(IMessage message)
     {
         return SimpleNetwork.getPacketFrom(message);
     }
