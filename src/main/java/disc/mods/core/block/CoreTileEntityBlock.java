@@ -33,6 +33,12 @@ public abstract class CoreTileEntityBlock extends CoreBlock
 
     @Override
     public abstract TileEntity createTileEntity(World world, IBlockState state);
+    
+    @Override
+    public boolean hasTileEntity(IBlockState state)
+    {
+        return true;
+    }
 
     public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos)
     {
