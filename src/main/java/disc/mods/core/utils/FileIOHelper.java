@@ -4,9 +4,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
+
+import org.apache.commons.io.FilenameUtils;
 
 public class FileIOHelper
 {
+    public enum FileType
+    {
+        Json(".json", "{}"), Text(".txt", "");
+
+        private final String CleanText;
+        private final String Extension;
+        
+        FileType(String Extention, String CleanText)
+        {
+            this.CleanText = CleanText;
+            this.Extension = Extention;
+        }
+        
+        void openClean(File file)
+        {
+            if(FilenameUtils.getExtension(file.getAbsolutePath()) != this.Extension) throw new InvalidPathException(file.getAbsolutePath(), "Invalid File Extension for extention: " + this.Extension);
+            WriteFile(file, this.CleanText);
+        }
+    }
+
     public static String ReadFile(File file)
     {
         FileInputStream fis = null;
@@ -70,5 +93,16 @@ public class FileIOHelper
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static File PrepareFile(String pathName, FileType type)
+    {
+        File file = new File(pathName);
+        if(!file.exists())
+        {
+            CreateFile(file);
+            type.openClean(file);
+        }        
+        return file;
     }
 }
