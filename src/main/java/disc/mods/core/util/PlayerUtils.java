@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;

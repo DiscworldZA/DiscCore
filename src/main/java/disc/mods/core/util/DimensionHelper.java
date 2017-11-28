@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;

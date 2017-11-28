@@ -1,6 +1,6 @@
 package disc.mods.core.tile;
 
-import disc.mods.core.ref.Names;
+import disc.mods.core.ref.References;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -117,7 +117,7 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
         super.readFromNBT(nbtTagCompound);
 
         // Read in the ItemStacks in the inventory from NBT
-        NBTTagList tagList = nbtTagCompound.getTagList(Names.NBT.Items, 10);
+        NBTTagList tagList = nbtTagCompound.getTagList(References.NBT.Items, 10);
         inventory = new ItemStack[this.getSizeInventory()];
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
@@ -147,7 +147,7 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
                 tagList.appendTag(tagCompound);
             }
         }
-        nbtTagCompound.setTag(Names.NBT.Items, tagList);
+        nbtTagCompound.setTag(References.NBT.Items, tagList);
         return nbtTagCompound;
     }
 }

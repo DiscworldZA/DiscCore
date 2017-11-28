@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.math.BlockPos;

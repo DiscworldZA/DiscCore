@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 public class FluidContainerHelper
 {

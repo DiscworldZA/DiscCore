@@ -7,8 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class Tabs
 {
-    public static final CreativeTabs CoreBlocks = new CreativeTabs(
-            "dc.CoreBlocks")
+    public static final CreativeTabs CoreBlocks = new CreativeTabs("dc.CoreBlocks")
     {
         @Override
         public ItemStack getTabIconItem()
@@ -23,8 +22,7 @@ public class Tabs
         }
     };
 
-    public static final CreativeTabs CoreItems = new CreativeTabs(
-            "dc.CoreItems")
+    public static final CreativeTabs CoreItems = new CreativeTabs("dc.CoreItems")
     {
         @Override
         public ItemStack getTabIconItem()

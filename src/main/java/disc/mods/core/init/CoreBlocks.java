@@ -1,5 +1,6 @@
 package disc.mods.core.init;
 
+import disc.mods.core.DiscCore;
 import disc.mods.core.block.*;
 import disc.mods.core.config.CoreConfig;
 import disc.mods.core.ref.CoreSettings;
@@ -23,12 +24,7 @@ public class CoreBlocks
     {
         Registrar.Register(block);
         Registrar.Register(itemBlock);
-
-        if (block instanceof CoreBlock)
-        {
-            ((CoreBlock) block).registerItemModel(itemBlock);
-        }
-
+        registerItemModel(itemBlock);
         return block;
     }
 
@@ -37,5 +33,10 @@ public class CoreBlocks
         ItemBlock itemBlock = new ItemBlock(block);
         itemBlock.setRegistryName(block.getRegistryName());
         return register(block, itemBlock);
+    }
+
+    public static void registerItemModel(ItemBlock itemBlock)
+    {
+        DiscCore.proxy.registerItemRenderer(itemBlock, 0);
     }
 }

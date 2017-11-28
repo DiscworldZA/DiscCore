@@ -26,11 +26,6 @@ public abstract class CoreBlock extends Block
         this(Material.ROCK, Name);
     }
 
-    public void registerItemModel(ItemBlock itemBlock)
-    {
-        DiscCore.proxy.registerItemRenderer(itemBlock, 0);
-    }
-
     @Override
     public CoreBlock setCreativeTab(CreativeTabs tab)
     {

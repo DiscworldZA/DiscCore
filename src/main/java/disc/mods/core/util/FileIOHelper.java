@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 import java.io.File;
 import java.io.FileInputStream;

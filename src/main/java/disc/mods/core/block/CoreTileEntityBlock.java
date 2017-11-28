@@ -1,6 +1,6 @@
 package disc.mods.core.block;
 
-import disc.mods.core.ref.Names;
+import disc.mods.core.ref.References;
 import disc.mods.core.tile.CoreTileEntity;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public abstract class CoreTileEntityBlock extends CoreBlock
 {
-    public static final PropertyDirection FACING = PropertyDirection.create(Names.NBT.Direction, EnumFacing.Plane.HORIZONTAL);
+    public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction, EnumFacing.Plane.HORIZONTAL);
 
     public CoreTileEntityBlock(Material material, String Name)
     {

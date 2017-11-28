@@ -1,6 +1,6 @@
 package disc.mods.core.ref;
 
-import disc.mods.core.utils.ResourceLocationHelper;
+import disc.mods.core.util.ResourceLocationHelper;
 import net.minecraft.util.ResourceLocation;
 
 public class Textures

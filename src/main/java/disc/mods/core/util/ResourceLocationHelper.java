@@ -1,4 +1,4 @@
-package disc.mods.core.utils;
+package disc.mods.core.util;
 
 import disc.mods.core.ref.References;
 import net.minecraft.util.ResourceLocation;

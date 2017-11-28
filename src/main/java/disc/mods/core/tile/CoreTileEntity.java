@@ -1,12 +1,9 @@
 package disc.mods.core.tile;
 
-import disc.mods.core.ref.Names;
 import disc.mods.core.ref.References;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public abstract class CoreTileEntity extends TileEntity implements ITickable
 {
@@ -25,14 +22,14 @@ public abstract class CoreTileEntity extends TileEntity implements ITickable
     {
         super.readFromNBT(nbtTagCompound);
 
-        if (nbtTagCompound.hasKey(Names.NBT.CustomName))
+        if (nbtTagCompound.hasKey(References.NBT.CustomName))
         {
-            this.customName = nbtTagCompound.getString(Names.NBT.CustomName);
+            this.customName = nbtTagCompound.getString(References.NBT.CustomName);
         }
 
-        if (nbtTagCompound.hasKey(Names.NBT.Owner))
+        if (nbtTagCompound.hasKey(References.NBT.Owner))
         {
-            this.owner = nbtTagCompound.getString(Names.NBT.Owner);
+            this.owner = nbtTagCompound.getString(References.NBT.Owner);
         }
     }
 
@@ -43,12 +40,12 @@ public abstract class CoreTileEntity extends TileEntity implements ITickable
 
         if (this.hasCustomName())
         {
-            nbtTagCompound.setString(Names.NBT.CustomName, customName);
+            nbtTagCompound.setString(References.NBT.CustomName, customName);
         }
 
         if (this.hasOwner())
         {
-            nbtTagCompound.setString(Names.NBT.Owner, owner);
+            nbtTagCompound.setString(References.NBT.Owner, owner);
         }
         return nbtTagCompound;
     }

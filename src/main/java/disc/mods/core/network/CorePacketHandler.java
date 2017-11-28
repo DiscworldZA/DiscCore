@@ -3,7 +3,7 @@ package disc.mods.core.network;
 import java.util.List;
 
 import disc.mods.core.ref.References;
-import disc.mods.core.utils.DimensionHelper;
+import disc.mods.core.util.DimensionHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.network.Packet;
