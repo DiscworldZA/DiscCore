@@ -8,10 +8,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class CoreConfig extends Configuration {
-	public static CoreConfig GetConfig() {
-		return DiscCore.instance.config;
-	}
+public abstract class CoreConfig extends Configuration {
 
 	public CoreConfig(File file) {
 		super(file);

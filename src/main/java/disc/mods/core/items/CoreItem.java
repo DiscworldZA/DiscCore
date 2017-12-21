@@ -15,10 +15,6 @@ public class CoreItem extends Item {
 		setCreativeTab(Tabs.CoreItems);
 	}
 
-	public void registerItemModel() {
-		DiscCore.proxy.registerItemRenderer(this, 0);
-	}
-
 	@Override
 	public CoreItem setCreativeTab(CreativeTabs tab) {
 		super.setCreativeTab(tab);

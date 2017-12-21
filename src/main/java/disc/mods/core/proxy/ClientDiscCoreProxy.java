@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ClientProxy extends CommonProxy {
+public class ClientDiscCoreProxy extends CommonDiscCoreProxy {
 	public void preInit(FMLPreInitializationEvent event) {
 		setModId(event.getModMetadata().modId);
 	}

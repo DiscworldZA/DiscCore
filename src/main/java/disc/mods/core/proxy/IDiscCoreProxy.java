@@ -1,6 +1,6 @@
 package disc.mods.core.proxy;
 
-public interface IProxy {
+public interface IDiscCoreProxy {
 	public abstract void registerTileEntities();
 
 	public abstract void initRenderingAndTextures();

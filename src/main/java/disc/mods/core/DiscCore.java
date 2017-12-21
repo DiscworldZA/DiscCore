@@ -1,62 +1,30 @@
 package disc.mods.core;
 
-import disc.mods.core.config.CoreConfig;
-import disc.mods.core.init.CoreBlocks;
-import disc.mods.core.init.CoreItems;
-import disc.mods.core.logging.Log;
-import disc.mods.core.proxy.CommonProxy;
+import disc.mods.core.proxy.IDiscCoreProxy;
+import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.ref.References;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = References.Mod.ID, name = References.Mod.Name, version = References.Mod.Version)
-public class DiscCore {
-	@Instance(References.Mod.ID)
+@Mod(modid = References.Mod.Id, name = References.Mod.Name, version = References.Mod.Version)
+public class DiscCore extends DiscMod{
+
+	@Instance
 	public static DiscCore instance;
-
-	@SidedProxy(serverSide = References.Proxy.Common, clientSide = References.Proxy.Client)
-	public static CommonProxy proxy;
-
-	public CoreConfig config;
-
-	public Log Logger;
-
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		// Logger
-		Logger = new Log(event.getModLog());
-
-		// Config
-		config = new CoreConfig(event.getSuggestedConfigurationFile());
-		config.preInit(event);
-
-		// Proxy
-		proxy.preInit(event);
-
-		// Blocks
-		CoreBlocks.init();
-
-		// Items
-		CoreItems.init();
+	
+	@SidedProxy(clientSide= References.Proxy.Client, serverSide = References.Proxy.Server)
+	public static IDiscCoreProxy proxy;
+	
+	
+	@Override
+	public String getModId() {
+		return References.Mod.Id;
 	}
 
-	@EventHandler
-	public void Init(FMLInitializationEvent event) {
-		// Proxy
-		proxy.init(event);
+	@Override
+	public IProxyBase proxy() {
+		return null;
 	}
-
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		// Proxy
-		proxy.postInit(event);
-
-		// Config
-		config.postInit(event);
-	}
+	
 }

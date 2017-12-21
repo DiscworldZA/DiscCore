@@ -61,7 +61,7 @@ public abstract class CoreGui extends GuiContainer {
 	}
 
 	public void drawTitle(String title) {
-		fontRendererObj.drawString(title, 8, 8, Color.darkGray.getRGB());
+		fontRenderer.drawString(title, 8, 8, Color.darkGray.getRGB());
 	}
 
 	public void drawLiquidBar(TileEntity tank, int xOffset, int yOffset) {

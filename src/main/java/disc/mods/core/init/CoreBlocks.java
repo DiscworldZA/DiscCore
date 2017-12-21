@@ -1,35 +1,42 @@
 package disc.mods.core.init;
 
-import disc.mods.core.DiscCore;
 import disc.mods.core.block.CoreBlock;
-import disc.mods.core.block.TestBlock;
-import disc.mods.core.ref.CoreSettings;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
-public class CoreBlocks {
-	public static CoreBlock TestBlock;
+public class CoreBlocks implements IDiscBlocks{
 
-	public static void init() {
-		if (CoreSettings.Debug.EnableTestBlock.Value) {
-			TestBlock = register(new TestBlock());
-		}
+    private final Class<? extends CoreBlock> blockClass;
+    private final Class<? extends ItemBlock> itemBlockClass;
+	private Block block;
+	
+    CoreBlocks(Class<? extends CoreBlock> blockClass) {
+        this(blockClass, ItemBlock.class);
+    }
+    
+    CoreBlocks(Class<? extends CoreBlock> blockClass, Class<? extends ItemBlock> itemBlockClass) {
+        this.blockClass = blockClass;
+        this.itemBlockClass = itemBlockClass;
+    }
+    
+	@Override
+	public Class<? extends CoreBlock> getBlockClass() {
+		return blockClass;
 	}
 
-	protected static <T extends Block> T register(T block, ItemBlock itemBlock) {
-		Registrar.Register(block);
-		Registrar.Register(itemBlock);
-		registerItemModel(itemBlock);
-		return block;
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return itemBlockClass;
 	}
 
-	protected static <T extends Block> T register(T block) {
-		ItemBlock itemBlock = new ItemBlock(block);
-		itemBlock.setRegistryName(block.getRegistryName());
-		return register(block, itemBlock);
+	@Override
+	public void setBlock(Block block) {
+		this.block = block;
 	}
 
-	public static void registerItemModel(ItemBlock itemBlock) {
-		DiscCore.proxy.registerItemRenderer(itemBlock, 0);
+	@Override
+	public Block getBlock() {
+		return this.block;
 	}
+
 }
