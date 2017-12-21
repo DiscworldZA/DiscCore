@@ -1,15 +1,22 @@
 package disc.mods.core.proxy;
 
-public interface IDiscCoreProxy {
-	public abstract void registerTileEntities();
+import disc.mods.core.proxy.base.IProxyBase;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-	public abstract void initRenderingAndTextures();
+public interface IDiscCoreProxy extends IProxyBase {
 
-	public abstract void registerEventHandlers();
+    @Override
+    default void registerCapabilities() {
 
-	public abstract void registerKeybindings();
+    }
 
-	public abstract void playSound(String soundName, float xCoord, float yCoord, float zCoord, float volume,
-			float pitch);
+    @Override
+    default void initConfiguration(FMLPreInitializationEvent event) {
 
+    }
+
+    @Override
+    default void registerEventHandlers() {
+
+    }
 }

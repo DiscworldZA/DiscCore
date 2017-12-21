@@ -8,9 +8,9 @@ public class References {
 	}
 
 	public static class Proxy {
-		public static final String Common = "disc.mods.core.proxy.CommonProxy";
-		public static final String Server = "disc.mods.core.proxy.ServerProxy";
-		public static final String Client = "disc.mods.core.proxy.ClientProxy";
+		public static final String Common = "disc.mods.core.proxy.CommonDiscCoreProxy";
+		public static final String Server = "disc.mods.core.proxy.ServerDiscCoreProxy";
+		public static final String Client = "disc.mods.core.proxy.ClientDiscCoreProxy";
 	}
 
 	public static final class NBT {

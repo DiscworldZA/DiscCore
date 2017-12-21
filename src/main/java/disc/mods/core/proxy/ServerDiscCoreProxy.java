@@ -1,5 +1,10 @@
 package disc.mods.core.proxy;
 
-public class ServerDiscCoreProxy extends CommonDiscCoreProxy {
+import disc.mods.core.proxy.base.IProxyServerBase;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+@SideOnly(Side.SERVER)
+public class ServerDiscCoreProxy extends CommonDiscCoreProxy implements IProxyServerBase{
 
 }
