@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-
 /***
  * 
  * @author DiscworldZA
@@ -24,80 +23,79 @@ import net.minecraftforge.fml.relauncher.Side;
  */
 public interface IProxyBase {
 
-	
 	default void preInitStart(FMLPreInitializationEvent e) {
-		
+
 	}
-	
+
 	default void preInitEnd(FMLPreInitializationEvent e) {
-		
+
 	}
-	
+
 	default void initStart(FMLInitializationEvent e) {
-		
+
 	}
-	
+
 	default void initEnd(FMLInitializationEvent e) {
-		
+
 	}
-	
+
 	default void postInitStart(FMLPostInitializationEvent e) {
-		
+
 	}
-	
+
 	default void postInitEnd(FMLPostInitializationEvent e) {
-		
+
 	}
-	
+
 	default void onServerAboutToStart(FMLServerAboutToStartEvent e) {
-		
+
 	}
-	
+
 	default void onServerStarting(FMLServerStartingEvent e) {
-		
+
 	}
-	
+
 	default void onServerStarted(FMLServerStartedEvent e) {
-		
+
 	}
-	
-    default void onServerStopping(FMLServerStoppingEvent event) {
-    	
-    }
 
-    default void onServerStopped(FMLServerStoppedEvent event) {
-    	
-    }
-    
-    void initConfiguration(FMLPreInitializationEvent event);
+	default void onServerStopping(FMLServerStoppingEvent event) {
 
-    void registerEventHandlers();
+	}
 
-    void registerCapabilities();
+	default void onServerStopped(FMLServerStoppedEvent event) {
 
-    default void registerEventHandler(Object handler) {
-        MinecraftForge.EVENT_BUS.register(handler);
-    }
-    
-    Side getPhysicalSide();
+	}
 
-    Side getEffectiveSide();
+	void initConfiguration(FMLPreInitializationEvent event);
 
-    default MinecraftServer getMinecraftServer() {
-        return FMLCommonHandler.instance().getMinecraftServerInstance();
-    }
+	void registerEventHandlers();
 
-    EntityPlayer getClientPlayer();
+	void registerCapabilities();
 
-    World getClientWorld();
+	default void registerEventHandler(Object handler) {
+		MinecraftForge.EVENT_BUS.register(handler);
+	}
 
-    World getWorldByDimensionId(int dimension);
+	Side getPhysicalSide();
 
-    default Entity getEntityById(int dimension, int id) {
-        return getEntityById(getWorldByDimensionId(dimension), id);
-    }
+	Side getEffectiveSide();
 
-    default Entity getEntityById(World world, int id) {
-        return world == null ? null : world.getEntityByID(id);
-    }
+	default MinecraftServer getMinecraftServer() {
+		return FMLCommonHandler.instance().getMinecraftServerInstance();
+	}
+
+	EntityPlayer getClientPlayer();
+
+	World getClientWorld();
+
+	World getWorldByDimensionId(int dimension);
+
+	default Entity getEntityById(int dimension, int id) {
+		return getEntityById(getWorldByDimensionId(dimension), id);
+	}
+
+	default Entity getEntityById(World world, int id) {
+		return world == null ? null : world.getEntityByID(id);
+	}
 }

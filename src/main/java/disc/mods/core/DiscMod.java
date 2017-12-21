@@ -39,64 +39,64 @@ public abstract class DiscMod {
 	public final void preInit(FMLPreInitializationEvent event) {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 		getLogger().info("preInit Started");
-		
-		proxy().registerEventHandler(this);
-		proxy().initConfiguration(event);       
-		proxy().preInitStart(event);
-        proxy().preInitEnd(event);
 
-        getLogger().info("preInit Ending");
-        getLogger().info(String.format("preInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
+		proxy().registerEventHandler(this);
+		proxy().initConfiguration(event);
+		proxy().preInitStart(event);
+		proxy().preInitEnd(event);
+
+		getLogger().info("preInit Ending");
+		getLogger().info(String.format("preInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
 
 	@EventHandler
 	public void Init(FMLInitializationEvent event) {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
-        this.getLogger().info("init Started");
+		final Stopwatch stopwatch = Stopwatch.createStarted();
+		this.getLogger().info("init Started");
 
-        proxy().initStart(event);
-        proxy().registerCapabilities();
-        proxy().registerEventHandlers();
-        proxy().initEnd(event);
-        
-        getLogger().info("init Ending");
-        getLogger().info(String.format("init Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
+		proxy().initStart(event);
+		proxy().registerCapabilities();
+		proxy().registerEventHandlers();
+		proxy().initEnd(event);
+
+		getLogger().info("init Ending");
+		getLogger().info(String.format("init Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-        final Stopwatch stopwatch = Stopwatch.createStarted();
-        this.getLogger().info("postInit Started");
-		
-        proxy().postInitStart(event);
-        proxy().postInitEnd(event);
-        
-        getLogger().info("postInit Ending");
-        getLogger().info(String.format("postInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
+		final Stopwatch stopwatch = Stopwatch.createStarted();
+		this.getLogger().info("postInit Started");
+
+		proxy().postInitStart(event);
+		proxy().postInitEnd(event);
+
+		getLogger().info("postInit Ending");
+		getLogger().info(String.format("postInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
-	
+
 	@EventHandler
-    public final void onServerAboutToStart(FMLServerAboutToStartEvent event) {
-        proxy().onServerAboutToStart(event);
-    }
+	public final void onServerAboutToStart(FMLServerAboutToStartEvent event) {
+		proxy().onServerAboutToStart(event);
+	}
 
-    @EventHandler
-    public final void onServerStarting(FMLServerStartingEvent event) {
-        proxy().onServerStarting(event);
-    }
+	@EventHandler
+	public final void onServerStarting(FMLServerStartingEvent event) {
+		proxy().onServerStarting(event);
+	}
 
-    @EventHandler
-    public final void onServerStarted(FMLServerStartedEvent event) {
-        proxy().onServerStarted(event);
-    }
+	@EventHandler
+	public final void onServerStarted(FMLServerStartedEvent event) {
+		proxy().onServerStarted(event);
+	}
 
-    @EventHandler
-    public final void onServerStopping(FMLServerStoppingEvent event) {
-        proxy().onServerStopping(event);
-    }
+	@EventHandler
+	public final void onServerStopping(FMLServerStoppingEvent event) {
+		proxy().onServerStopping(event);
+	}
 
-    @EventHandler
-    public final void onServerStopped(FMLServerStoppedEvent event) {
-        proxy().onServerStopped(event);
-    }
+	@EventHandler
+	public final void onServerStopped(FMLServerStoppedEvent event) {
+		proxy().onServerStopped(event);
+	}
 }

@@ -2,7 +2,6 @@ package disc.mods.core.block;
 
 import disc.mods.core.ref.References;
 import disc.mods.core.tile.CoreTileEntity;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -15,57 +14,50 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class CoreTileEntityBlock extends CoreBlock
-{
-    public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction, EnumFacing.Plane.HORIZONTAL);
+public abstract class CoreTileEntityBlock extends CoreBlock {
+	public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction,
+			EnumFacing.Plane.HORIZONTAL);
 
-    public CoreTileEntityBlock(Material material, String Name)
-    {
-        super(material, Name);
-        this.setDefaultState(this.blockState.getBaseState());
-    }
+	public CoreTileEntityBlock(Material material, String Name) {
+		super(material, Name);
+		this.setDefaultState(this.blockState.getBaseState());
+	}
 
-    public CoreTileEntityBlock(String Name)
-    {
-        super(Name);
-        this.setDefaultState(this.blockState.getBaseState());
-    }
+	public CoreTileEntityBlock(String Name) {
+		super(Name);
+		this.setDefaultState(this.blockState.getBaseState());
+	}
 
-    @Override
-    public abstract TileEntity createTileEntity(World world, IBlockState state);
-    
-    @Override
-    public boolean hasTileEntity(IBlockState state)
-    {
-        return true;
-    }
+	@Override
+	public abstract TileEntity createTileEntity(World world, IBlockState state);
 
-    public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos)
-    {
-        return (T) world.getTileEntity(pos);
-    }
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
 
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
-    {
-        world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-    }
+	public <T extends CoreTileEntity> T GetTileEntity(IBlockAccess world, BlockPos pos) {
+		return (T) world.getTileEntity(pos);
+	}
 
-    @Override
-    public IBlockState getStateFromMeta(int meta)
-    {
-        return getDefaultState().withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
-    }
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer,
+			ItemStack stack) {
+		world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+	}
 
-    @Override
-    public int getMetaFromState(IBlockState state)
-    {
-        return state.getValue(FACING).getIndex() - 2;
-    }
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
+	}
 
-    @Override
-    protected BlockStateContainer createBlockState()
-    {
-        return new BlockStateContainer(this, FACING);
-    }
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getIndex() - 2;
+	}
+
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
+	}
 }
