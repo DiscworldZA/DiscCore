@@ -11,21 +11,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
-public abstract class GuiHandler implements IGuiHandler
-{
+public abstract class GuiHandler implements IGuiHandler {
 	private HashMap<Integer, CoreContainer> containers = new HashMap<Integer, CoreContainer>();
 	private HashMap<Integer, CoreGui> guis = new HashMap<Integer, CoreGui>();
 	private static int id = 0;
 
-	public GuiHandler()
-	{
+	public GuiHandler() {
 		RegisterIDs();
 	}
 
 	public abstract void RegisterIDs();
 
-	public int RegisterID(CoreGui gui, CoreContainer container)
-	{
+	public int RegisterID(CoreGui gui, CoreContainer container) {
 		int ID = id++;
 		containers.put(ID, container);
 		guis.put(ID, gui);
@@ -33,11 +30,9 @@ public abstract class GuiHandler implements IGuiHandler
 	}
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if (tile instanceof CoreTileEntityInventory)
-		{
+		if (tile instanceof CoreTileEntityInventory) {
 			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;
 			return containers.get(ID).NewInstance(player.inventory, cte);
 		}
@@ -45,11 +40,9 @@ public abstract class GuiHandler implements IGuiHandler
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
-		if (tile instanceof CoreTileEntityInventory)
-		{
+		if (tile instanceof CoreTileEntityInventory) {
 			CoreTileEntityInventory cte = (CoreTileEntityInventory) tile;
 			return guis.get(ID).NewInstance(player.inventory, cte);
 		}

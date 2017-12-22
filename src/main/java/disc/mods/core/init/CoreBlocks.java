@@ -1,42 +1,44 @@
 package disc.mods.core.init;
 
-import disc.mods.core.DiscCore;
-import disc.mods.core.block.*;
-import disc.mods.core.config.CoreConfig;
-import disc.mods.core.ref.CoreSettings;
+import disc.mods.core.block.CoreBlock;
+import disc.mods.core.block.TestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class CoreBlocks
-{
-    public static CoreBlock TestBlock;
+public enum CoreBlocks implements IDiscBlocks {
+	TestBlock(TestBlock.class);
 
-    public static void init()
-    {
-        if (CoreSettings.Debug.EnableTestBlock.Value)
-        {
-            TestBlock = register(new TestBlock());
-        }
-    }
+	private final Class<? extends CoreBlock> blockClass;
+	private final Class<? extends ItemBlock> itemBlockClass;
+	private Block block;
 
-    protected static <T extends Block> T register(T block, ItemBlock itemBlock)
-    {
-        Registrar.Register(block);
-        Registrar.Register(itemBlock);
-        registerItemModel(itemBlock);
-        return block;
-    }
+	CoreBlocks(Class<? extends CoreBlock> blockClass) {
+		this(blockClass, ItemBlock.class);
+	}
 
-    protected static <T extends Block> T register(T block)
-    {
-        ItemBlock itemBlock = new ItemBlock(block);
-        itemBlock.setRegistryName(block.getRegistryName());
-        return register(block, itemBlock);
-    }
+	CoreBlocks(Class<? extends CoreBlock> blockClass, Class<? extends ItemBlock> itemBlockClass) {
+		this.blockClass = blockClass;
+		this.itemBlockClass = itemBlockClass;
+	}
 
-    public static void registerItemModel(ItemBlock itemBlock)
-    {
-        DiscCore.proxy.registerItemRenderer(itemBlock, 0);
-    }
+	@Override
+	public Class<? extends CoreBlock> getBlockClass() {
+		return blockClass;
+	}
+
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass() {
+		return itemBlockClass;
+	}
+
+	@Override
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	@Override
+	public Block getBlock() {
+		return this.block;
+	}
+
 }

@@ -1,0 +1,37 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "up": "disccore:blocks/test/top_texture",
+      "down": "disccore:blocks/test/bottom_texture",
+      "north": "disccore:blocks/test/front_texture",
+      "east": "disccore:blocks/test/side_texture",
+      "west": "disccore:blocks/test/side_texture",
+      "south": "disccore:blocks/test/side_texture",
+      "particle": "disccore:blocks/test/front_texture"
+    },
+    "model": "minecraft:cube",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "inventory": [
+      {}
+    ],
+    "facing": {
+      "west": {
+        "y": -90
+      },
+      "east": {
+        "y": 90
+      },
+      "north": {
+      },
+      "south": {
+        "y": 180
+      }
+    },
+    "normal": [
+      {}
+    ]
+  }
+}

@@ -1,12 +1,13 @@
 package disc.mods.core.block;
 
-import disc.mods.core.config.CoreConfig;
-import disc.mods.core.ref.CoreSettings;
+import disc.mods.core.creativetab.Tabs;
 
-public class TestBlock extends CoreBlock
-{
-	public TestBlock()
-	{
-		super(CoreSettings.Debug.TestBlockName.Value);
+public class TestBlock extends CoreBlock {
+
+	public TestBlock() {
+		super("testblock");
+		this.setName("testblock");
+		this.setCreativeTab(Tabs.CoreBlocks);
 	}
+
 }
