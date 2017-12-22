@@ -44,8 +44,8 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 		}
 	}
 
-	public CoreBlock(String Name) {
-		this(Material.ROCK, Name);
+	public CoreBlock(String resourcePath) {
+		this(Material.ROCK, resourcePath);
 	}
 
 	@Override

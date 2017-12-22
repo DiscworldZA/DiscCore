@@ -4,8 +4,14 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
 
+import disc.mods.core.init.IDiscBlocks;
 import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.util.DiscLog;
+import disc.mods.core.util.EventHandlerHook;
+import disc.mods.core.util.Registrar;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -16,6 +22,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public abstract class DiscMod {
 	@Instance
@@ -29,18 +37,28 @@ public abstract class DiscMod {
 
 	public DiscMod() {
 		logger = new DiscLog(this);
+		logger.info("Initialized");
+		EventHandlerHook.Hook(this);
 	}
 
 	public abstract String getModId();
 
 	public abstract IProxyBase proxy();
 
+	public Class getBlockEnum() {
+		return null;
+	}
+
+	public Class getItemEnum() {
+		return null;
+	}
+
 	@EventHandler
 	public final void preInit(FMLPreInitializationEvent event) {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 		getLogger().info("preInit Started");
 
-		proxy().registerEventHandler(this);
+		proxy().registerEventHandler(new Registrar());
 		proxy().initConfiguration(event);
 		proxy().preInitStart(event);
 		proxy().preInitEnd(event);
