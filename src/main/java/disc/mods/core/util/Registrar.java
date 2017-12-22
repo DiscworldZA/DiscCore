@@ -21,7 +21,7 @@ import net.minecraftforge.registries.IForgeRegistry;
  */
 public class Registrar {
 
-	public static Block registerBlock(IForgeRegistry event, Class<? extends CoreBlock> blockClass) {
+	public Block registerBlock(IForgeRegistry event, Class<? extends CoreBlock> blockClass) {
 		Block block = null;
 		String internalName;
 
@@ -58,7 +58,7 @@ public class Registrar {
 		return block;
 	}
 
-	public static void registerItemBlock(IForgeRegistry event, Block block, Class<? extends ItemBlock> itemBlockClass) {
+	public void registerItemBlock(IForgeRegistry event, Block block, Class<? extends ItemBlock> itemBlockClass) {
 		ItemBlock itemBlock;
 
 		try {
@@ -100,12 +100,12 @@ public class Registrar {
 	private <E extends Enum<E>> void registerEnum(Class<E> enumData, IForgeRegistry event) {
 		for (Enum<E> enumObject : enumData.getEnumConstants()) {
 			if (event.getRegistrySuperType() == Block.class && enumObject instanceof IDiscBlocks) {
-				Block block = Registrar.registerBlock(event, ((IDiscBlocks) enumObject).getBlockClass());
+				Block block = this.registerBlock(event, ((IDiscBlocks) enumObject).getBlockClass());
 				((IDiscBlocks) enumObject).setBlock(block);
 			}
 
 			if (event.getRegistrySuperType() == Item.class && enumObject instanceof IDiscBlocks) {
-				Registrar.registerItemBlock(event, ((IDiscBlocks) enumObject).getBlock(),
+				this.registerItemBlock(event, ((IDiscBlocks) enumObject).getBlock(),
 						((IDiscBlocks) enumObject).getItemBlockClass());
 			}
 		}
