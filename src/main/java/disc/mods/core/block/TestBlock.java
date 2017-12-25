@@ -10,4 +10,8 @@ public class TestBlock extends CoreBlock {
 		this.setCreativeTab(Tabs.CoreBlocks);
 	}
 
+	public boolean canRotate() {
+		return true;
+	}
+
 }

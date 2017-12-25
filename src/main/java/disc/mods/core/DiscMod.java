@@ -1,19 +1,16 @@
 package disc.mods.core;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
 
-import disc.mods.core.init.IDiscBlocks;
 import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.util.DiscLog;
 import disc.mods.core.util.EventHandlerHook;
 import disc.mods.core.util.Registrar;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -22,12 +19,23 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 
+/***
+ * @reference Fireball1725/firelib
+ * @author DiscworldZA
+ *
+ */
 public abstract class DiscMod {
-	@Instance
-	public static DiscMod instance;
+
+//	public static DiscMod instance() {
+//		try {
+//			DiscCore.instance.getLogger().info("Getting ModContainer");
+//			return (DiscMod) Loader.instance().activeModContainer();
+//		} catch (Exception e) {
+//			DiscCore.instance.getLogger().fatal("instance of mod called that isn't DiscMod??");
+//			throw e;
+//		}
+//	}
 
 	private final DiscLog logger;
 
@@ -58,7 +66,6 @@ public abstract class DiscMod {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 		getLogger().info("preInit Started");
 
-		proxy().registerEventHandler(new Registrar());
 		proxy().initConfiguration(event);
 		proxy().preInitStart(event);
 		proxy().preInitEnd(event);

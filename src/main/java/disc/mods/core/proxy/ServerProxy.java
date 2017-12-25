@@ -5,6 +5,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.SERVER)
-public class ServerDiscCoreProxy extends CommonDiscCoreProxy implements IProxyServerBase{
+public class ServerProxy extends CommonProxy implements IProxyServerBase{
 
 }

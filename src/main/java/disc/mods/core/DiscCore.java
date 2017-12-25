@@ -2,7 +2,7 @@ package disc.mods.core;
 
 import disc.mods.core.block.CoreBlock;
 import disc.mods.core.init.CoreBlocks;
-import disc.mods.core.proxy.IDiscCoreProxy;
+import disc.mods.core.proxy.IProxy;
 import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.ref.References;
 import net.minecraftforge.fml.common.Mod;
@@ -16,7 +16,7 @@ public class DiscCore extends DiscMod {
 	public static DiscCore instance;
 
 	@SidedProxy(clientSide = References.Proxy.Client, serverSide = References.Proxy.Server)
-	public static IDiscCoreProxy proxy;
+	public static IProxy proxy;
 
 	@Override
 	public Class getBlockEnum() {

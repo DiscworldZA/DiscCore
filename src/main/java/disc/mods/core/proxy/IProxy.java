@@ -3,7 +3,7 @@ package disc.mods.core.proxy;
 import disc.mods.core.proxy.base.IProxyBase;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public interface IDiscCoreProxy extends IProxyBase {
+public interface IProxy extends IProxyBase {
 
     @Override
     default void registerCapabilities() {

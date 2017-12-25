@@ -20,8 +20,15 @@ import net.minecraftforge.registries.IForgeRegistry;
  *
  */
 public class Registrar {
+	
+	private DiscMod instance;
+	
+	public Registrar(DiscMod instance)
+	{
+		this.instance = instance;
+	}
 
-	public static Block registerBlock(IForgeRegistry event, Class<? extends CoreBlock> blockClass) {
+	public Block registerBlock(IForgeRegistry event, Class<? extends CoreBlock> blockClass) {
 		Block block = null;
 		String internalName;
 
@@ -43,14 +50,14 @@ public class Registrar {
 
 			event.register(block);
 
-			if (block instanceof IBlockRenderer && DiscMod.instance.proxy().getEffectiveSide() == Side.CLIENT) {
+			if (block instanceof IBlockRenderer && instance.proxy().getEffectiveSide() == Side.CLIENT) {
 				((IBlockRenderer) block).registerBlockRenderer();
 			}
 
-			DiscMod.instance.getLogger().info(String.format("Registered block (%s) as (%s)",
+			instance.getLogger().info(String.format("Registered block (%s) as (%s)",
 					blockClass.getCanonicalName(), block.getRegistryName()));
 		} catch (Exception ex) {
-			DiscMod.instance.getLogger()
+			instance.getLogger()
 					.fatal(String.format("Fatal error while registering block (%s)", blockClass.getCanonicalName()));
 			ex.printStackTrace();
 		}
@@ -58,7 +65,7 @@ public class Registrar {
 		return block;
 	}
 
-	public static void registerItemBlock(IForgeRegistry event, Block block, Class<? extends ItemBlock> itemBlockClass) {
+	public void registerItemBlock(IForgeRegistry event, Block block, Class<? extends ItemBlock> itemBlockClass) {
 		ItemBlock itemBlock;
 
 		try {
@@ -67,14 +74,14 @@ public class Registrar {
 
 			event.register(itemBlock);
 
-			if (block instanceof IBlockRenderer && DiscMod.instance.proxy().getEffectiveSide() == Side.CLIENT) {
+			if (block instanceof IBlockRenderer && instance.proxy().getEffectiveSide() == Side.CLIENT) {
 				((IBlockRenderer) block).registerBlockItemRenderer();
 			}
 
-			DiscMod.instance.getLogger()
+			instance.getLogger()
 					.info(String.format("Registered block (%s)", itemBlockClass.getCanonicalName()));
 		} catch (Exception ex) {
-			DiscMod.instance.getLogger().fatal(
+			instance.getLogger().fatal(
 					String.format("Fatal error while registering block (%s)", itemBlockClass.getCanonicalName()));
 			ex.printStackTrace();
 		}
@@ -82,30 +89,30 @@ public class Registrar {
 
 	@SubscribeEvent
 	public final void registerBlocks(RegistryEvent.Register<Block> event) {
-		DiscMod.instance.getLogger().info("Trying to register Blocks");
-		if (DiscMod.instance.getBlockEnum() != null)
-			registerEnum(DiscMod.instance.getBlockEnum(), event.getRegistry());
+		instance.getLogger().info("Trying to register Blocks");
+		if (instance.getBlockEnum() != null)
+			registerEnum(instance.getBlockEnum(), event.getRegistry());
 	}
 
 	@SubscribeEvent
 	public final void registerItems(RegistryEvent.Register<Item> event) {
-		DiscMod.instance.getLogger().info("Trying to register Items");
-		if (DiscMod.instance.getBlockEnum() != null)
-			registerEnum(DiscMod.instance.getBlockEnum(), event.getRegistry());
+		instance.getLogger().info("Trying to register Items");
+		if (instance.getBlockEnum() != null)
+			registerEnum(instance.getBlockEnum(), event.getRegistry());
 
-		if (DiscMod.instance.getItemEnum() != null)
-			registerEnum(DiscMod.instance.getItemEnum(), event.getRegistry());
+		if (instance.getItemEnum() != null)
+			registerEnum(instance.getItemEnum(), event.getRegistry());
 	}
 
 	private <E extends Enum<E>> void registerEnum(Class<E> enumData, IForgeRegistry event) {
 		for (Enum<E> enumObject : enumData.getEnumConstants()) {
 			if (event.getRegistrySuperType() == Block.class && enumObject instanceof IDiscBlocks) {
-				Block block = Registrar.registerBlock(event, ((IDiscBlocks) enumObject).getBlockClass());
+				Block block = this.registerBlock(event, ((IDiscBlocks) enumObject).getBlockClass());
 				((IDiscBlocks) enumObject).setBlock(block);
 			}
 
 			if (event.getRegistrySuperType() == Item.class && enumObject instanceof IDiscBlocks) {
-				Registrar.registerItemBlock(event, ((IDiscBlocks) enumObject).getBlock(),
+				this.registerItemBlock(event, ((IDiscBlocks) enumObject).getBlock(),
 						((IDiscBlocks) enumObject).getItemBlockClass());
 			}
 		}

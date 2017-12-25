@@ -1,5 +1,6 @@
 package disc.mods.core.block;
 
+import disc.mods.core.DiscCore;
 import disc.mods.core.DiscMod;
 import disc.mods.core.ref.References;
 import disc.mods.core.util.StringUtil;
@@ -58,7 +59,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	public String getUnlocalizedName() {
 		String blockName = getUnwrappedUnlocalizedName(super.getUnlocalizedName());
 
-		return String.format("tile.%s.%s", DiscMod.instance.getModId(), blockName);
+		return String.format("tile.%s.%s", DiscCore.instance.getModId(), blockName);
 	}
 
 	private String getUnwrappedUnlocalizedName(String unlocalizedName) {
@@ -124,7 +125,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockRenderer() {
-		final String resourcePath = String.format("%s:%s", DiscMod.instance.getModId(), this.resourcePath);
+		final String resourcePath = String.format("%s:%s", DiscCore.instance.getModId(), this.resourcePath);
 
 		ModelLoader.setCustomStateMapper(this, new DefaultStateMapper() {
 			@SideOnly(Side.CLIENT)
@@ -139,7 +140,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockItemRenderer() {
-		final String resourcePath = String.format("%s:%s", DiscMod.instance.getModId(), this.resourcePath);
+		final String resourcePath = String.format("%s:%s", DiscCore.instance.getModId(), this.resourcePath);
 
 		NonNullList<ItemStack> subBlocks = NonNullList.create();
 		getSubBlocks(null, subBlocks);
