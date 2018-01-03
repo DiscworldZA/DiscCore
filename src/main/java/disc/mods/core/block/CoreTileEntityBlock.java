@@ -16,12 +16,12 @@ import net.minecraft.world.World;
 
 public abstract class CoreTileEntityBlock extends CoreBlock {
 
-	public CoreTileEntityBlock(Material material, String Name) {
-		super(material, Name);
+	public CoreTileEntityBlock(String name, String resourcePath) {
+		super(name, Material.IRON, resourcePath);
 	}
 
-	public CoreTileEntityBlock(String Name) {
-		super(Name);
+	public CoreTileEntityBlock(String name, Material mat, String resourcePath) {
+		super(name, mat, resourcePath);
 	}
 
 	@Override

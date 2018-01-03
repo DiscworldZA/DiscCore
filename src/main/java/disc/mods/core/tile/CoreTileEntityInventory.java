@@ -1,28 +1,34 @@
 package disc.mods.core.tile;
 
 import disc.mods.core.ref.References;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 
 public abstract class CoreTileEntityInventory extends CoreTileEntity implements IInventory {
-	protected ItemStack[] inventory;
+	private NonNullList<ItemStack> inventory;
 	private int numUsingPlayers;
 
-	public void createInventory(int size) {
-		inventory = new ItemStack[size];
+	public CoreTileEntityInventory() {
+		inventory = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
+	public abstract int getSizeInventory();
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		return inventory[index];
+		return inventory.get(index);
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return inventory.set(index, ItemStack.EMPTY);
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		inventory[index] = stack;
+		inventory.set(index, stack);
 
 		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
 			stack.setCount(this.getInventoryStackLimit());
@@ -96,33 +102,15 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
 
-		// Read in the ItemStacks in the inventory from NBT
-		NBTTagList tagList = nbtTagCompound.getTagList(References.NBT.Items, 10);
-		inventory = new ItemStack[this.getSizeInventory()];
-		for (int i = 0; i < tagList.tagCount(); ++i) {
-			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-			byte slotIndex = tagCompound.getByte("Slot");
-			if (slotIndex >= 0 && slotIndex < inventory.length) {
-				inventory[slotIndex] = new ItemStack(tagCompound);
-			}
-		}
+		ItemStackHelper.loadAllItems(nbtTagCompound, inventory);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
 
-		// Write the ItemStacks in the inventory to NBT
-		NBTTagList tagList = new NBTTagList();
-		for (int slotIndex = 0; slotIndex < inventory.length; ++slotIndex) {
-			if (inventory[slotIndex] != null) {
-				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setByte("Slot", (byte) slotIndex);
-				inventory[slotIndex].writeToNBT(tagCompound);
-				tagList.appendTag(tagCompound);
-			}
-		}
-		nbtTagCompound.setTag(References.NBT.Items, tagList);
+		ItemStackHelper.saveAllItems(nbtTagCompound, inventory);
+
 		return nbtTagCompound;
 	}
 }

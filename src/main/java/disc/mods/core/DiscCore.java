@@ -1,7 +1,7 @@
 package disc.mods.core;
 
-import disc.mods.core.block.CoreBlock;
 import disc.mods.core.init.CoreBlocks;
+import disc.mods.core.init.CoreItems;
 import disc.mods.core.proxy.IProxy;
 import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.ref.References;
@@ -21,6 +21,11 @@ public class DiscCore extends DiscMod {
 	@Override
 	public Class getBlockEnum() {
 		return CoreBlocks.class;
+	}
+
+	@Override
+	public Class getItemEnum() {
+		return CoreItems.class;
 	}
 
 	@Override

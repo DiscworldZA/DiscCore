@@ -33,20 +33,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class CoreBlock extends Block implements IBlockRenderer {
 	public String Name;
 	public String resourcePath;
+
 	public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction,
 			EnumFacing.Plane.HORIZONTAL);
 
-	public CoreBlock(Material materialIn, String resourcePath) {
+	public CoreBlock(String name, Material materialIn, String resourcePath) {
 		super(materialIn);
 		this.resourcePath = resourcePath;
+		this.setUnlocalizedName(DiscMod.instance().getModId() + "." + name);
+		this.Name = name;
 
 		if (this.canRotate()) {
 			this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		}
 	}
 
-	public CoreBlock(String resourcePath) {
-		this(Material.ROCK, resourcePath);
+	public String getModId() {
+		return this.getRegistryName().getResourceDomain();
+	}
+
+	public CoreBlock(String name, String resourcePath) {
+		this(name, Material.ROCK, resourcePath);
 	}
 
 	@Override
@@ -57,21 +64,16 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 
 	@Override
 	public String getUnlocalizedName() {
-		String blockName = getUnwrappedUnlocalizedName(super.getUnlocalizedName());
-
-		return String.format("tile.%s.%s", DiscCore.instance.getModId(), blockName);
-	}
-
-	private String getUnwrappedUnlocalizedName(String unlocalizedName) {
-		return unlocalizedName.substring(unlocalizedName.indexOf('.') + 1);
+		return String.format("tile.%s.%s", this.getRegistryName().getResourceDomain(),
+				this.getRegistryName().getResourcePath());
 	}
 
 	public String getName() {
 		return Name;
 	}
 
-	public void setName(String internalName) {
-		this.Name = internalName;
+	public void setName(String name) {
+		Name = name;
 	}
 
 	@Override
@@ -87,7 +89,6 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-
 		if (canRotate()) {
 			EnumFacing playerFacing = placer.getHorizontalFacing().getOpposite();
 			if (placer.isSneaking())
@@ -125,7 +126,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockRenderer() {
-		final String resourcePath = String.format("%s:%s", DiscCore.instance.getModId(), this.resourcePath);
+		final String resourcePath = String.format("%s:%s", DiscMod.instance().getModId(), this.resourcePath);
 
 		ModelLoader.setCustomStateMapper(this, new DefaultStateMapper() {
 			@SideOnly(Side.CLIENT)
@@ -140,7 +141,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockItemRenderer() {
-		final String resourcePath = String.format("%s:%s", DiscCore.instance.getModId(), this.resourcePath);
+		final String resourcePath = String.format("%s:%s", DiscMod.instance().getModId(), this.resourcePath);
 
 		NonNullList<ItemStack> subBlocks = NonNullList.create();
 		getSubBlocks(null, subBlocks);
