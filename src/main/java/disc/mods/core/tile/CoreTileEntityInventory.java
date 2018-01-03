@@ -1,12 +1,18 @@
 package disc.mods.core.tile;
 
+<<<<<<< HEAD
 import disc.mods.core.block.CoreBlock;
 import disc.mods.core.util.EnumSide;
+=======
+import disc.mods.core.ref.References;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+<<<<<<< HEAD
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +21,17 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 public abstract class CoreTileEntityInventory extends CoreTileEntity implements IItemHandler {
+=======
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
+
+public abstract class CoreTileEntityInventory extends CoreTileEntity implements IInventory {
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	private NonNullList<ItemStack> inventory;
 	private int numUsingPlayers;
 
 	public CoreTileEntityInventory() {
+<<<<<<< HEAD
 		inventory = NonNullList.<ItemStack>withSize(getSlots(), ItemStack.EMPTY);
 	}
 
@@ -31,14 +44,44 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
+=======
+		inventory = NonNullList.<ItemStack>withSize(getSizeInventory(), ItemStack.EMPTY);
+	}
+
+	@Override
+	public abstract int getSizeInventory();
+
+	@Override
+	public ItemStack getStackInSlot(int index) {
+		return inventory.get(index);
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return inventory.set(index, ItemStack.EMPTY);
+	}
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 
 		ItemStackHelper.saveAllItems(nbtTagCompound, inventory);
 
 		return nbtTagCompound;
 	}
 
+<<<<<<< HEAD
 	public NonNullList<ItemStack> getItems() {
 		return this.inventory;
+=======
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		inventory.set(index, stack);
+
+		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
+			stack.setCount(this.getInventoryStackLimit());
+		}
+
+		this.markDirty();
+
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	}
 
 	@Override
@@ -100,6 +143,7 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 	public abstract NonNullList<EnumSide> getItemHandlingSides();
 
 	@Override
+<<<<<<< HEAD
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				&& getItemHandlingSides().stream().anyMatch(x -> x.matches(facing, this))) {
@@ -115,6 +159,21 @@ public abstract class CoreTileEntityInventory extends CoreTileEntity implements 
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this);
 		}
 		return super.getCapability(capability, facing);
+=======
+	public void readFromNBT(NBTTagCompound nbtTagCompound) {
+		super.readFromNBT(nbtTagCompound);
+
+		ItemStackHelper.loadAllItems(nbtTagCompound, inventory);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
+		super.writeToNBT(nbtTagCompound);
+
+		ItemStackHelper.saveAllItems(nbtTagCompound, inventory);
+
+		return nbtTagCompound;
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	}
 
 }

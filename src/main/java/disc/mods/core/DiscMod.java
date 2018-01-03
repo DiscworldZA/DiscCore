@@ -32,8 +32,12 @@ public abstract class DiscMod {
 	public static DiscMod instance() {
 		if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
 			return (DiscMod) Loader.instance().activeModContainer().getMod();
+<<<<<<< HEAD
 		}
 		else {
+=======
+		} else {
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 			return DiscCore.instance;
 		}
 	}

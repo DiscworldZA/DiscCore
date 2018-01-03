@@ -37,10 +37,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class CoreBlock extends Block implements IBlockRenderer {
 	public String Name;
 	public String resourcePath;
+<<<<<<< HEAD
 	public int guiId = -1;
 
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 
+=======
+
+	public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction,
+			EnumFacing.Plane.HORIZONTAL);
+
+>>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	public CoreBlock(String name, Material materialIn, String resourcePath) {
 		super(materialIn);
 		this.resourcePath = resourcePath;
