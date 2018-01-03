@@ -11,22 +11,6 @@ public class PlayerUtils {
 		player.sendMessage(new TextComponentString(msg));
 	}
 
-	public static void setPresistedData(EntityPlayer player, String key, String value) {
-		NBTTagCompound presistedData = player.getEntityData().getCompoundTag(player.PERSISTED_NBT_TAG);
-		if (presistedData == null)
-			presistedData = new NBTTagCompound();
-		presistedData.setString(key, value);
-		player.getEntityData().setTag(player.PERSISTED_NBT_TAG, presistedData);
-	}
-
-	public static String getPresistedData(EntityPlayer player, String key) {
-		return player.getEntityData().getCompoundTag(player.PERSISTED_NBT_TAG).getString(key);
-	}
-
-	public static boolean hasPresistedData(EntityPlayer player, String key) {
-		return player.getEntityData().getCompoundTag(player.PERSISTED_NBT_TAG).hasKey(key);
-	}
-
 	public static boolean isCreative(EntityPlayer player) {
 		return player.capabilities.isCreativeMode;
 	}

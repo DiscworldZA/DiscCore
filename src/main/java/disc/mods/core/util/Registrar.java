@@ -6,6 +6,8 @@ import disc.mods.core.DiscMod;
 import disc.mods.core.block.CoreBlock;
 import disc.mods.core.block.IBlockRenderer;
 import disc.mods.core.init.IDiscBlocks;
+import disc.mods.core.init.IDiscItems;
+import disc.mods.core.items.CoreItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -20,13 +22,6 @@ import net.minecraftforge.registries.IForgeRegistry;
  *
  */
 public class Registrar {
-	
-	private DiscMod instance;
-	
-	public Registrar(DiscMod instance)
-	{
-		this.instance = instance;
-	}
 
 	public Block registerBlock(IForgeRegistry event, Class<? extends CoreBlock> blockClass) {
 		Block block = null;
@@ -37,27 +32,26 @@ public class Registrar {
 
 			internalName = ((CoreBlock) block).getName();
 
-			if (!internalName.equals(internalName.toLowerCase(Locale.US)))
-				throw new IllegalArgumentException(
-						String.format("Unlocalized names need to be all lowercase! Block is %s", internalName));
+			if (!internalName.equals(internalName.toLowerCase(Locale.US))) throw new IllegalArgumentException(
+					String.format("Unlocalized names need to be all lowercase! Block is %s", internalName));
 
-			if (internalName.isEmpty())
-				throw new IllegalArgumentException(
-						String.format("Unlocalized names cannot be blank! Block is %s", blockClass.getCanonicalName()));
+			if (internalName.isEmpty()) throw new IllegalArgumentException(
+					String.format("Unlocalized names cannot be blank! Block is %s", blockClass.getCanonicalName()));
 
 			block.setRegistryName(internalName);
 			block.setUnlocalizedName(internalName);
 
 			event.register(block);
 
-			if (block instanceof IBlockRenderer && instance.proxy().getEffectiveSide() == Side.CLIENT) {
+			if (block instanceof IBlockRenderer && DiscMod.instance().proxy().getEffectiveSide() == Side.CLIENT) {
 				((IBlockRenderer) block).registerBlockRenderer();
 			}
 
-			instance.getLogger().info(String.format("Registered block (%s) as (%s)",
+			DiscMod.instance().getLogger().info(String.format("Registered block (%s) as (%s)",
 					blockClass.getCanonicalName(), block.getRegistryName()));
-		} catch (Exception ex) {
-			instance.getLogger()
+		}
+		catch (Exception ex) {
+			DiscMod.instance().getLogger()
 					.fatal(String.format("Fatal error while registering block (%s)", blockClass.getCanonicalName()));
 			ex.printStackTrace();
 		}
@@ -74,34 +68,74 @@ public class Registrar {
 
 			event.register(itemBlock);
 
-			if (block instanceof IBlockRenderer && instance.proxy().getEffectiveSide() == Side.CLIENT) {
+			if (block instanceof IBlockRenderer && DiscMod.instance().proxy().getEffectiveSide() == Side.CLIENT) {
 				((IBlockRenderer) block).registerBlockItemRenderer();
 			}
 
-			instance.getLogger()
-					.info(String.format("Registered block (%s)", itemBlockClass.getCanonicalName()));
-		} catch (Exception ex) {
-			instance.getLogger().fatal(
+			DiscMod.instance().getLogger().info(String.format("Registered itemblock (%s) as (%s)",
+					itemBlockClass.getCanonicalName(), itemBlock.getRegistryName()));
+		}
+		catch (Exception ex) {
+			DiscMod.instance().getLogger().fatal(
 					String.format("Fatal error while registering block (%s)", itemBlockClass.getCanonicalName()));
 			ex.printStackTrace();
 		}
 	}
 
+	private Item registerItem(IForgeRegistry event, Class<? extends Item> itemClass) {
+		Item item = null;
+		String internalName = "";
+
+		try {
+			item = itemClass.getConstructor().newInstance();
+
+			if (item instanceof CoreItem) internalName = ((CoreItem) item).getName();
+
+			if (!internalName.equals(internalName.toLowerCase(Locale.US))) throw new IllegalArgumentException(
+					String.format("Unlocalized names need to be all lowercase! Item: %s", internalName));
+
+			if (internalName.isEmpty()) throw new IllegalArgumentException(
+					String.format("Unlocalized name cannot be blank! Item: %s", itemClass.getCanonicalName()));
+
+			item.setRegistryName(DiscMod.instance().getModId(), internalName);
+			item.setUnlocalizedName(internalName);
+
+			event.register(item);
+
+			if (item instanceof IItemRenderer && DiscMod.instance().proxy().getEffectiveSide() == Side.CLIENT)
+				((IItemRenderer) item).registerItemRenderer();
+
+			DiscMod.instance().getLogger().info(String.format("Registered item (%s) as (%s)",
+					itemClass.getCanonicalName(), item.getRegistryName()));
+		}
+		catch (Exception ex) {
+			DiscMod.instance().getLogger()
+					.fatal(String.format("Fatal error while registering item (%s)", itemClass.getCanonicalName()));
+			ex.printStackTrace();
+		}
+
+		return item;
+	}
+
 	@SubscribeEvent
 	public final void registerBlocks(RegistryEvent.Register<Block> event) {
-		instance.getLogger().info("Trying to register Blocks");
-		if (instance.getBlockEnum() != null)
-			registerEnum(instance.getBlockEnum(), event.getRegistry());
+		DiscMod.instance().getLogger().info("Trying to register Blocks");
+		if (DiscMod.instance().getBlockEnum() != null) DiscMod.instance().getLogger().info("Registering Blocks");
+		registerEnum(DiscMod.instance().getBlockEnum(), event.getRegistry());
 	}
 
 	@SubscribeEvent
 	public final void registerItems(RegistryEvent.Register<Item> event) {
-		instance.getLogger().info("Trying to register Items");
-		if (instance.getBlockEnum() != null)
-			registerEnum(instance.getBlockEnum(), event.getRegistry());
+		DiscMod.instance().getLogger().info("Trying to register Items");
+		if (DiscMod.instance().getBlockEnum() != null) {
+			DiscMod.instance().getLogger().info("Registering ItemBlocks");
+			registerEnum(DiscMod.instance().getBlockEnum(), event.getRegistry());
+		}
 
-		if (instance.getItemEnum() != null)
-			registerEnum(instance.getItemEnum(), event.getRegistry());
+		if (DiscMod.instance().getItemEnum() != null) {
+			DiscMod.instance().getLogger().info("Registering Items");
+			registerEnum(DiscMod.instance().getItemEnum(), event.getRegistry());
+		}
 	}
 
 	private <E extends Enum<E>> void registerEnum(Class<E> enumData, IForgeRegistry event) {
@@ -114,6 +148,11 @@ public class Registrar {
 			if (event.getRegistrySuperType() == Item.class && enumObject instanceof IDiscBlocks) {
 				this.registerItemBlock(event, ((IDiscBlocks) enumObject).getBlock(),
 						((IDiscBlocks) enumObject).getItemBlockClass());
+			}
+
+			if (event.getRegistrySuperType() == Item.class && enumObject instanceof IDiscItems) {
+				Item item = registerItem(event, ((IDiscItems) enumObject).getItemClass());
+				((IDiscItems) enumObject).setItem(item);
 			}
 		}
 	}

@@ -1,128 +1,120 @@
 package disc.mods.core.tile;
 
-import disc.mods.core.ref.References;
+import disc.mods.core.block.CoreBlock;
+import disc.mods.core.util.EnumSide;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
-public abstract class CoreTileEntityInventory extends CoreTileEntity implements IInventory {
-	protected ItemStack[] inventory;
+public abstract class CoreTileEntityInventory extends CoreTileEntity implements IItemHandler {
+	private NonNullList<ItemStack> inventory;
 	private int numUsingPlayers;
 
-	public void createInventory(int size) {
-		inventory = new ItemStack[size];
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int index) {
-		return inventory[index];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int index, int amount) {
-		ItemStack itemStack = getStackInSlot(index);
-		if (itemStack != null) {
-			if (itemStack.getCount() <= amount) {
-				setInventorySlotContents(index, null);
-			} else {
-				itemStack = itemStack.splitStack(amount);
-				if (itemStack.getCount() == 0) {
-					setInventorySlotContents(index, null);
-				}
-			}
-		}
-
-		return itemStack;
-	}
-
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
-		inventory[index] = stack;
-
-		if (stack != null && stack.getCount() > this.getInventoryStackLimit()) {
-			stack.setCount(this.getInventoryStackLimit());
-		}
-
-		this.markDirty();
-
-	}
-
-	@Override
-	public String getName() {
-		return this.hasCustomName() ? this.getCustomName() : this.getName();
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return this.hasCustomName();
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		return true;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-		++numUsingPlayers;
-		world.addBlockEvent(this.pos, this.getBlockType(), 1, numUsingPlayers);
-
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-		--numUsingPlayers;
-		world.addBlockEvent(this.pos, this.getBlockType(), 1, numUsingPlayers);
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return true;
+	public CoreTileEntityInventory() {
+		inventory = NonNullList.<ItemStack>withSize(getSlots(), ItemStack.EMPTY);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
-
-		// Read in the ItemStacks in the inventory from NBT
-		NBTTagList tagList = nbtTagCompound.getTagList(References.NBT.Items, 10);
-		inventory = new ItemStack[this.getSizeInventory()];
-		for (int i = 0; i < tagList.tagCount(); ++i) {
-			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-			byte slotIndex = tagCompound.getByte("Slot");
-			if (slotIndex >= 0 && slotIndex < inventory.length) {
-				inventory[slotIndex] = new ItemStack(tagCompound);
-			}
-		}
+		ItemStackHelper.loadAllItems(nbtTagCompound, inventory);
 	}
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbtTagCompound) {
 		super.writeToNBT(nbtTagCompound);
 
-		// Write the ItemStacks in the inventory to NBT
-		NBTTagList tagList = new NBTTagList();
-		for (int slotIndex = 0; slotIndex < inventory.length; ++slotIndex) {
-			if (inventory[slotIndex] != null) {
-				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setByte("Slot", (byte) slotIndex);
-				inventory[slotIndex].writeToNBT(tagCompound);
-				tagList.appendTag(tagCompound);
-			}
-		}
-		nbtTagCompound.setTag(References.NBT.Items, tagList);
+		ItemStackHelper.saveAllItems(nbtTagCompound, inventory);
+
 		return nbtTagCompound;
 	}
+
+	public NonNullList<ItemStack> getItems() {
+		return this.inventory;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return getItems().get(slot);
+	}
+
+	protected void setStackInSlot(int slot, ItemStack stack) {
+		this.inventory.set(slot, stack);
+	}
+
+	public boolean isEmpty() {
+		return inventory.stream().allMatch(x -> x.isEmpty());
+	}
+
+	@Override
+	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+		ItemStack stackInSlot = getStackInSlot(slot);
+		if (stackInSlot.isEmpty()) {
+			if (!simulate) setStackInSlot(slot, stack);
+			return ItemStack.EMPTY;
+		}
+		if (stackInSlot.isItemEqual(stack)) {
+			if (stackInSlot.getCount() + stack.getCount() > stackInSlot.getMaxStackSize()) {
+				if (!simulate)
+					setStackInSlot(slot, new ItemStack(stackInSlot.getItem(), stackInSlot.getMaxStackSize()));
+				return new ItemStack(stackInSlot.getItem(),
+						stackInSlot.getCount() + stack.getCount() - stackInSlot.getMaxStackSize());
+			}
+			else {
+				if (!simulate) setStackInSlot(slot,
+						new ItemStack(stackInSlot.getItem(), stackInSlot.getCount() + stack.getCount()));
+				return ItemStack.EMPTY;
+			}
+		}
+		return stack;
+	}
+
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		ItemStack stackInSlot = getStackInSlot(slot);
+		if (stackInSlot.isEmpty()) return ItemStack.EMPTY;
+		if (stackInSlot.getCount() < amount) {
+			return null;
+		}
+		else {
+			if (!simulate) setStackInSlot(slot, new ItemStack(stackInSlot.getItem(), stackInSlot.getCount() - amount));
+			return new ItemStack(stackInSlot.getItem(), amount);
+		}
+	}
+
+	@Override
+	public int getSlotLimit(int slot) {
+		if (getStackInSlot(slot).isEmpty())
+			return 64;
+		else return getStackInSlot(slot).getMaxStackSize();
+	}
+
+	public abstract NonNullList<EnumSide> getItemHandlingSides();
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				&& getItemHandlingSides().stream().anyMatch(x -> x.matches(facing, this))) {
+			return true;
+		}
+		return super.hasCapability(capability, facing);
+	}
+
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+				&& getItemHandlingSides().stream().anyMatch(x -> x.matches(facing, this))) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(this);
+		}
+		return super.getCapability(capability, facing);
+	}
+
 }
