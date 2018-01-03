@@ -37,17 +37,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public abstract class CoreBlock extends Block implements IBlockRenderer {
 	public String Name;
 	public String resourcePath;
-<<<<<<< HEAD
 	public int guiId = -1;
 
 	public static final PropertyDirection FACING = BlockDirectional.FACING;
 
-=======
-
-	public static final PropertyDirection FACING = PropertyDirection.create(References.NBT.Direction,
-			EnumFacing.Plane.HORIZONTAL);
-
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	public CoreBlock(String name, Material materialIn, String resourcePath) {
 		super(materialIn);
 		this.resourcePath = resourcePath;
@@ -109,7 +102,8 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 			if (canRotateVertically()) {
 				playerFacing = EnumFacing.getDirectionFromEntityLiving(pos, placer);
 			}
-			if (placer.isSneaking()) playerFacing = playerFacing.getOpposite();
+			if (placer.isSneaking())
+				playerFacing = playerFacing.getOpposite();
 
 			worldIn.setBlockState(pos, state.withProperty(FACING, playerFacing), 2);
 		}
@@ -127,14 +121,16 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		if (canRotate()) return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
+		if (canRotate())
+			return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
 
 		return super.getStateFromMeta(meta);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		if (canRotate()) return (state.getValue(FACING)).getIndex();
+		if (canRotate())
+			return (state.getValue(FACING)).getIndex();
 
 		return super.getMetaFromState(state);
 	}

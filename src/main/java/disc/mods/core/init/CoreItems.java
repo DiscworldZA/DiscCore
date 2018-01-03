@@ -4,12 +4,8 @@ import disc.mods.core.items.TestItem;
 import net.minecraft.item.Item;
 
 public enum CoreItems implements IDiscItems {
-<<<<<<< HEAD
 	;
-=======
-	TestItem(TestItem.class);
 
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 	CoreItems(Class<? extends Item> itemClass) {
 		this.itemClass = itemClass;
 	}

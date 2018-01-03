@@ -32,11 +32,13 @@ public class Registrar {
 
 			internalName = ((CoreBlock) block).getName();
 
-			if (!internalName.equals(internalName.toLowerCase(Locale.US))) throw new IllegalArgumentException(
-					String.format("Unlocalized names need to be all lowercase! Block is %s", internalName));
+			if (!internalName.equals(internalName.toLowerCase(Locale.US)))
+				throw new IllegalArgumentException(
+						String.format("Unlocalized names need to be all lowercase! Block is %s", internalName));
 
-			if (internalName.isEmpty()) throw new IllegalArgumentException(
-					String.format("Unlocalized names cannot be blank! Block is %s", blockClass.getCanonicalName()));
+			if (internalName.isEmpty())
+				throw new IllegalArgumentException(
+						String.format("Unlocalized names cannot be blank! Block is %s", blockClass.getCanonicalName()));
 
 			block.setRegistryName(internalName);
 			block.setUnlocalizedName(internalName);
@@ -49,12 +51,8 @@ public class Registrar {
 
 			DiscMod.instance().getLogger().info(String.format("Registered block (%s) as (%s)",
 					blockClass.getCanonicalName(), block.getRegistryName()));
-<<<<<<< HEAD
-		}
-		catch (Exception ex) {
-=======
+
 		} catch (Exception ex) {
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 			DiscMod.instance().getLogger()
 					.fatal(String.format("Fatal error while registering block (%s)", blockClass.getCanonicalName()));
 			ex.printStackTrace();
@@ -76,16 +74,9 @@ public class Registrar {
 				((IBlockRenderer) block).registerBlockItemRenderer();
 			}
 
-<<<<<<< HEAD
-			DiscMod.instance().getLogger().info(String.format("Registered itemblock (%s) as (%s)",
-					itemBlockClass.getCanonicalName(), itemBlock.getRegistryName()));
-		}
-		catch (Exception ex) {
-=======
 			DiscMod.instance().getLogger()
 					.info(String.format("Registered block (%s)", itemBlockClass.getCanonicalName()));
 		} catch (Exception ex) {
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 			DiscMod.instance().getLogger().fatal(
 					String.format("Fatal error while registering block (%s)", itemBlockClass.getCanonicalName()));
 			ex.printStackTrace();
@@ -99,15 +90,6 @@ public class Registrar {
 		try {
 			item = itemClass.getConstructor().newInstance();
 
-<<<<<<< HEAD
-			if (item instanceof CoreItem) internalName = ((CoreItem) item).getName();
-
-			if (!internalName.equals(internalName.toLowerCase(Locale.US))) throw new IllegalArgumentException(
-					String.format("Unlocalized names need to be all lowercase! Item: %s", internalName));
-
-			if (internalName.isEmpty()) throw new IllegalArgumentException(
-					String.format("Unlocalized name cannot be blank! Item: %s", itemClass.getCanonicalName()));
-=======
 			if (item instanceof CoreItem)
 				internalName = ((CoreItem) item).getName();
 
@@ -118,7 +100,6 @@ public class Registrar {
 			if (internalName.isEmpty())
 				throw new IllegalArgumentException(
 						String.format("Unlocalized name cannot be blank! Item: %s", itemClass.getCanonicalName()));
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 
 			item.setRegistryName(DiscMod.instance().getModId(), internalName);
 			item.setUnlocalizedName(internalName);
@@ -128,15 +109,8 @@ public class Registrar {
 			if (item instanceof IItemRenderer && DiscMod.instance().proxy().getEffectiveSide() == Side.CLIENT)
 				((IItemRenderer) item).registerItemRenderer();
 
-<<<<<<< HEAD
-			DiscMod.instance().getLogger().info(String.format("Registered item (%s) as (%s)",
-					itemClass.getCanonicalName(), item.getRegistryName()));
-		}
-		catch (Exception ex) {
-=======
 			DiscMod.instance().getLogger().info(String.format("Registered item (%s)", itemClass.getCanonicalName()));
 		} catch (Exception ex) {
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 			DiscMod.instance().getLogger()
 					.fatal(String.format("Fatal error while registering item (%s)", itemClass.getCanonicalName()));
 			ex.printStackTrace();
@@ -148,12 +122,9 @@ public class Registrar {
 	@SubscribeEvent
 	public final void registerBlocks(RegistryEvent.Register<Block> event) {
 		DiscMod.instance().getLogger().info("Trying to register Blocks");
-<<<<<<< HEAD
-		if (DiscMod.instance().getBlockEnum() != null) DiscMod.instance().getLogger().info("Registering Blocks");
-=======
+
 		if (DiscMod.instance().getBlockEnum() != null)
 			DiscMod.instance().getLogger().info("Registering Blocks");
->>>>>>> e8a5c0b9100de7f0f393563f17f4139939f12540
 		registerEnum(DiscMod.instance().getBlockEnum(), event.getRegistry());
 	}
 
