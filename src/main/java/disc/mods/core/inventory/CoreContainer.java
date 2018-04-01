@@ -1,25 +1,23 @@
 package disc.mods.core.inventory;
 
 import disc.mods.core.tile.CoreTileEntity;
-import disc.mods.core.tile.CoreTileEntityInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public abstract class CoreContainer extends Container {
 	private CoreTileEntity tile;
 	public int InventoryRowsPlayer = 3;
 	public int InventoryColumnsPlayer = 9;
 
-	public CoreContainer() {
+	public void setTile(CoreTileEntity tile) {
+		this.tile = tile;
 	}
 
-	public CoreContainer(InventoryPlayer inventory, CoreTileEntityInventory tile) {
-		this.tile = tile;
-		this.drawInv(inventory, 0, 0);
+	public void setInventory(InventoryPlayer player) {
+		this.drawInv(player, 0, 0);
 	}
 
 	public <T> T GetTileEntity() {
@@ -30,8 +28,6 @@ public abstract class CoreContainer extends Container {
 		}
 		return null;
 	}
-
-	public abstract CoreContainer NewInstance(InventoryPlayer inventory, CoreTileEntityInventory tile);
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
@@ -53,71 +49,5 @@ public abstract class CoreContainer extends Container {
 
 	public void addSlot(IInventory stack, int slotIndex, int x, int y) {
 		this.addSlotToContainer(new Slot(stack, slotIndex, x, y));
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int p_82846_2_) {
-		Slot slot = (Slot) this.inventorySlots.get(p_82846_2_);
-		return slot != null ? slot.getStack() : null;
-	}
-
-	protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
-		boolean slotFound = false;
-		int slotIndex = ascending ? slotMax - 1 : slotMin;
-
-		Slot slot;
-		ItemStack slotStack;
-
-		if (itemStack.isStackable()) {
-			while (itemStack.getCount() > 0
-					&& (!ascending && slotIndex < slotMax || ascending && slotIndex >= slotMin)) {
-				slot = (Slot) this.inventorySlots.get(slotIndex);
-				slotStack = slot.getStack();
-
-				if (slot.isItemValid(itemStack) && itemStack.getItem() == slotStack.getItem()) {
-					int combinedStackSize = slotStack.getCount() + itemStack.getCount();
-					int slotStackSizeLimit = Math.min(slotStack.getMaxStackSize(), slot.getSlotStackLimit());
-
-					if (combinedStackSize <= slotStackSizeLimit) {
-						itemStack.setCount(0);
-						slotStack.setCount(combinedStackSize);
-						slot.onSlotChanged();
-						slotFound = true;
-					} else if (slotStack.getCount() < slotStackSizeLimit) {
-						itemStack.setCount(slotStackSizeLimit - slotStack.getCount());
-						slotStack.setCount(slotStackSizeLimit);
-						slot.onSlotChanged();
-						slotFound = true;
-					}
-				}
-
-				slotIndex += ascending ? -1 : 1;
-			}
-		}
-
-		if (itemStack.getCount() > 0) {
-			slotIndex = ascending ? slotMax - 1 : slotMin;
-
-			while (!ascending && slotIndex < slotMax || ascending && slotIndex >= slotMin) {
-				slot = (Slot) this.inventorySlots.get(slotIndex);
-				slotStack = slot.getStack();
-
-				if (slot.isItemValid(itemStack) && slotStack == null) {
-					slot.putStack(itemStack.copy());
-					slot.onSlotChanged();
-
-					if (slot.getStack() != null) {
-						itemStack.setCount(slot.getStack().getCount());
-						slotFound = true;
-					}
-
-					break;
-				}
-
-				slotIndex += ascending ? -1 : 1;
-			}
-		}
-
-		return slotFound;
 	}
 }

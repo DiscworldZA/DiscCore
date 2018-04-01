@@ -3,14 +3,16 @@ package disc.mods.core.ref;
 public class References {
 	public static class Mod {
 		public static final String Id = "disccore";
-		public static final String Name = "DiscCore";
-		public static final String Version = "0.1 Alpha";
+		public static final String Name = "Disc Core";
+		public static final String Version = "@VERSION@";
+		public static final String DependencyString = "";
 	}
 
 	public static class Proxy {
-		public static final String Common = "disc.mods.core.proxy.CommonDiscCoreProxy";
-		public static final String Server = "disc.mods.core.proxy.ServerDiscCoreProxy";
-		public static final String Client = "disc.mods.core.proxy.ClientDiscCoreProxy";
+		private static final String root = "disc.mods.core.proxy.";
+		public static final String Common = root + "CommonProxy";
+		public static final String Server = root + "ServerProxy";
+		public static final String Client = root + "ClientProxy";
 	}
 
 	public static final class NBT {
