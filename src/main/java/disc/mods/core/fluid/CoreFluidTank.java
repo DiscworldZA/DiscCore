@@ -1,11 +1,8 @@
 package disc.mods.core.fluid;
 
-import javax.swing.plaf.SliderUI;
-
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
-import scala.reflect.internal.HasFlags;
 
 public abstract class CoreFluidTank implements IFluidTank {
 
@@ -30,8 +27,7 @@ public abstract class CoreFluidTank implements IFluidTank {
 	public int getOverflow(FluidStack stack) {
 		if (stack.amount + getFluidAmount() > getCapacity()) {
 			return getCapacity() - (stack.amount + getFluidAmount());
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
@@ -63,8 +59,7 @@ public abstract class CoreFluidTank implements IFluidTank {
 		if (!hasFluid()) {
 			fluidStack = new FluidStack(resource, Math.min(getCapacity(), resource.amount));
 			return getFluidAmount();
-		}
-		else if (!this.getFluid().isFluidEqual(resource)) {
+		} else if (!this.getFluid().isFluidEqual(resource)) {
 			return 0;
 		}
 
@@ -73,8 +68,7 @@ public abstract class CoreFluidTank implements IFluidTank {
 		if (resource.amount < filled) {
 			fluidStack.amount += resource.amount;
 			filled = resource.amount;
-		}
-		else {
+		} else {
 			fluidStack.amount = getCapacity();
 		}
 		return filled;

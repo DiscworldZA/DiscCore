@@ -19,6 +19,11 @@ public class DiscCore extends DiscMod {
 	public static IProxy proxy;
 
 	@Override
+	public String getModId() {
+		return References.Mod.Id;
+	}
+
+	@Override
 	public Class getBlockEnum() {
 		return CoreBlocks.class;
 	}
@@ -26,11 +31,6 @@ public class DiscCore extends DiscMod {
 	@Override
 	public Class getItemEnum() {
 		return CoreItems.class;
-	}
-
-	@Override
-	public String getModId() {
-		return References.Mod.Id;
 	}
 
 	@Override

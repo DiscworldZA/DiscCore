@@ -1,14 +1,9 @@
 package disc.mods.core.tile;
 
-import disc.mods.core.block.CoreBlock;
 import disc.mods.core.ref.References;
-import disc.mods.core.util.EnumSide;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.EnumFacing.Axis;
-import net.minecraft.util.math.BlockPos;
 
 public abstract class CoreTileEntity extends TileEntity implements ITickable {
 	public String name;

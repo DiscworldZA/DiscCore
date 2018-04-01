@@ -1,7 +1,5 @@
 package disc.mods.core.util;
 
-import java.util.Locale;
-
 import disc.mods.core.DiscMod;
 import disc.mods.core.block.CoreBlock;
 import disc.mods.core.block.IBlockRenderer;
@@ -16,10 +14,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import java.util.Locale;
+
 /**
- * @credit Fireball1725/firelib
  * @author Pieter.VanLill
- *
+ * @credit Fireball1725/firelib
  */
 public class Registrar {
 
@@ -123,9 +122,10 @@ public class Registrar {
 	public final void registerBlocks(RegistryEvent.Register<Block> event) {
 		DiscMod.instance().getLogger().info("Trying to register Blocks");
 
-		if (DiscMod.instance().getBlockEnum() != null)
+		if (DiscMod.instance().getBlockEnum() != null) {
 			DiscMod.instance().getLogger().info("Registering Blocks");
-		registerEnum(DiscMod.instance().getBlockEnum(), event.getRegistry());
+			registerEnum(DiscMod.instance().getBlockEnum(), event.getRegistry());
+		}
 	}
 
 	@SubscribeEvent

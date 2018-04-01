@@ -1,7 +1,5 @@
 package disc.mods.core.tile;
 
-import disc.mods.core.util.EnumSide;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public abstract class CorePoweredTileEntity extends CoreTileEntityInventory implements IEnergyStorage {
@@ -30,8 +28,7 @@ public abstract class CorePoweredTileEntity extends CoreTileEntityInventory impl
 			int received = maxReceive + currentEnergy - maxEnergy;
 			if (!simulate) currentEnergy = maxEnergy;
 			return received;
-		}
-		else {
+		} else {
 			if (!simulate) currentEnergy += maxReceive;
 			return maxReceive;
 		}
@@ -44,8 +41,7 @@ public abstract class CorePoweredTileEntity extends CoreTileEntityInventory impl
 			int extracted = currentEnergy;
 			if (!simulate) currentEnergy = 0;
 			return extracted;
-		}
-		else {
+		} else {
 			if (!simulate) currentEnergy -= maxExtract;
 			return maxExtract;
 		}

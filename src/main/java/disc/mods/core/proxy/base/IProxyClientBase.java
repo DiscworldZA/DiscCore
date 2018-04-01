@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 /***
- * 
+ *
  * @author DiscworldZA
  * @reference Fireball1725/firelib
  *

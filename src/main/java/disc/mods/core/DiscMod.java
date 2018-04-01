@@ -1,10 +1,6 @@
 package disc.mods.core;
 
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.base.Stopwatch;
-
 import disc.mods.core.handlers.GuiHandler;
 import disc.mods.core.proxy.base.IProxyBase;
 import disc.mods.core.util.DiscLog;
@@ -13,14 +9,9 @@ import disc.mods.core.util.Registrar;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.common.event.*;
+
+import java.util.concurrent.TimeUnit;
 
 /***
  * @reference Fireball1725/firelib
@@ -60,7 +51,7 @@ public abstract class DiscMod {
 
 	public DiscMod() {
 		logger = new DiscLog(this);
-		logger.info("Initialized");
+		logger.debug("Initialized");
 		EventHandlerHook.Hook(this);
 		guiHandler = new GuiHandler();
 	}
@@ -80,40 +71,40 @@ public abstract class DiscMod {
 	@EventHandler
 	public final void preInit(FMLPreInitializationEvent event) {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
-		getLogger().info("preInit Started");
+		getLogger().debug("preInit Started");
 
 		proxy().registerEventHandler(new Registrar());
 		proxy().initConfiguration(event);
 		proxy().preInitStart(event);
 		proxy().preInitEnd(event);
 
-		getLogger().info("preInit Ending");
+		getLogger().debug("preInit Ending");
 		getLogger().info(String.format("preInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
 
 	@EventHandler
 	public void Init(FMLInitializationEvent event) {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
-		this.getLogger().info("init Started");
+		this.getLogger().debug("init Started");
 
 		proxy().initStart(event);
 		proxy().registerCapabilities();
 		proxy().registerEventHandlers();
 		proxy().initEnd(event);
 
-		getLogger().info("init Ending");
+		getLogger().debug("init Ending");
 		getLogger().info(String.format("init Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
-		this.getLogger().info("postInit Started");
+		this.getLogger().debug("postInit Started");
 
 		proxy().postInitStart(event);
 		proxy().postInitEnd(event);
 
-		getLogger().info("postInit Ending");
+		getLogger().debug("postInit Ending");
 		getLogger().info(String.format("postInit Took: %s ms", stopwatch.elapsed(TimeUnit.MILLISECONDS)));
 	}
 

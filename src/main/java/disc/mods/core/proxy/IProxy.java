@@ -5,18 +5,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public interface IProxy extends IProxyBase {
 
-    @Override
-    default void registerCapabilities() {
+	@Override
+	default void registerCapabilities() {
 
-    }
+	}
 
-    @Override
-    default void initConfiguration(FMLPreInitializationEvent event) {
+	@Override
+	default void initConfiguration(FMLPreInitializationEvent event) {
 
-    }
+	}
 
-    @Override
-    default void registerEventHandlers() {
+	@Override
+	default void registerEventHandlers() {
 
-    }
+	}
 }

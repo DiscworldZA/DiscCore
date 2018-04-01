@@ -1,17 +1,13 @@
 package disc.mods.core.client.gui.inventory;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import disc.mods.core.inventory.CoreContainer;
 import disc.mods.core.ref.Textures;
 import disc.mods.core.tile.CoreTileEntity;
-import disc.mods.core.tile.CoreTileEntityInventory;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
+import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
 
 public abstract class CoreGui extends GuiContainer {
 	protected CoreTileEntity tile;
@@ -29,8 +25,7 @@ public abstract class CoreGui extends GuiContainer {
 	public <T> T GetTileEntity() {
 		try {
 			return (T) tile;
-		}
-		catch (ClassCastException e) {
+		} catch (ClassCastException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -61,6 +56,6 @@ public abstract class CoreGui extends GuiContainer {
 		int startY = ((height - ySize) / 2) - 1 + yOffset;
 		this.drawTexturedModalRect(startX, startY, 0, 0, xSize, ySize);
 	}
-	
-	
+
+
 }

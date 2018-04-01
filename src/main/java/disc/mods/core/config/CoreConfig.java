@@ -1,12 +1,11 @@
 package disc.mods.core.config;
 
-import java.io.File;
-
-import disc.mods.core.DiscCore;
 import disc.mods.core.ref.CoreSettings;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import java.io.File;
 
 public abstract class CoreConfig extends Configuration {
 

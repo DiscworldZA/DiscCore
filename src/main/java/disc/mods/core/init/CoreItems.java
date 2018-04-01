@@ -1,6 +1,5 @@
 package disc.mods.core.init;
 
-import disc.mods.core.items.TestItem;
 import net.minecraft.item.Item;
 
 public enum CoreItems implements IDiscItems {

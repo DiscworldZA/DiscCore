@@ -1,8 +1,8 @@
 package disc.mods.core.util;
 
-import java.util.Map;
-
 import net.minecraft.block.properties.IProperty;
+
+import java.util.Map;
 
 /***
  * @credit Fireball1725/firelib
@@ -38,7 +38,7 @@ public class StringUtil {
 	}
 
 	private static <T extends Comparable<T>> String getPropertyName(IProperty<T> p_187489_1_,
-			Comparable<?> p_187489_2_) {
+	                                                                Comparable<?> p_187489_2_) {
 		return p_187489_1_.getName((T) p_187489_2_);
 	}
 }

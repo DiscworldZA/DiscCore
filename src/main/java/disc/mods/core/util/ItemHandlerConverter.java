@@ -39,8 +39,7 @@ public class ItemHandlerConverter implements IItemHandler {
 					setStackInSlot(slot, new ItemStack(stackInSlot.getItem(), stackInSlot.getMaxStackSize()));
 				return new ItemStack(stackInSlot.getItem(),
 						stackInSlot.getCount() + stack.getCount() - stackInSlot.getMaxStackSize());
-			}
-			else {
+			} else {
 				if (!simulate) setStackInSlot(slot,
 						new ItemStack(stackInSlot.getItem(), stackInSlot.getCount() + stack.getCount()));
 				return ItemStack.EMPTY;
@@ -55,8 +54,7 @@ public class ItemHandlerConverter implements IItemHandler {
 		if (stackInSlot.isEmpty()) return ItemStack.EMPTY;
 		if (stackInSlot.getCount() < amount) {
 			return null;
-		}
-		else {
+		} else {
 			if (!simulate) setStackInSlot(slot, new ItemStack(stackInSlot.getItem(), stackInSlot.getCount() - amount));
 			return new ItemStack(stackInSlot.getItem(), amount);
 		}

@@ -1,8 +1,5 @@
 package disc.mods.core.handlers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-
 import disc.mods.core.client.gui.inventory.CoreGui;
 import disc.mods.core.inventory.CoreContainer;
 import disc.mods.core.tile.CoreTileEntity;
@@ -11,6 +8,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public class GuiHandler implements IGuiHandler {
 	private HashMap<Integer, Class<? extends CoreContainer>> containers = new HashMap<Integer, Class<? extends CoreContainer>>();
@@ -35,8 +35,7 @@ public class GuiHandler implements IGuiHandler {
 				container = containers.get(ID).newInstance();
 				container.setTile((CoreTileEntity) tile);
 				container.setInventory(player.inventory);
-			}
-			catch (InstantiationException | IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
 			return container;
@@ -58,8 +57,7 @@ public class GuiHandler implements IGuiHandler {
 				container.setInventory(player.inventory);
 				gui = guis.get(ID).getConstructor(CoreContainer.class).newInstance(container);
 				gui.setTile((CoreTileEntity) tile);
-			}
-			catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
 			}

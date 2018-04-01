@@ -1,6 +1,5 @@
 package disc.mods.core.block;
 
-import disc.mods.core.DiscCore;
 import disc.mods.core.DiscMod;
 import disc.mods.core.client.gui.inventory.CoreGui;
 import disc.mods.core.inventory.CoreContainer;
@@ -95,7 +94,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
-			ItemStack stack) {
+	                            ItemStack stack) {
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		if (canRotate()) {
 			EnumFacing playerFacing = placer.getHorizontalFacing().getOpposite();
@@ -111,7 +110,7 @@ public abstract class CoreBlock extends Block implements IBlockRenderer {
 
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	                                EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (hasGui()) {
 			OpenGui(playerIn, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;

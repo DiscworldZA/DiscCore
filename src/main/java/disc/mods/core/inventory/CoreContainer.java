@@ -1,13 +1,11 @@
 package disc.mods.core.inventory;
 
 import disc.mods.core.tile.CoreTileEntity;
-import disc.mods.core.tile.CoreTileEntityInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
 public abstract class CoreContainer extends Container {
 	private CoreTileEntity tile;
@@ -25,8 +23,7 @@ public abstract class CoreContainer extends Container {
 	public <T> T GetTileEntity() {
 		try {
 			return (T) tile;
-		}
-		catch (ClassCastException e) {
+		} catch (ClassCastException e) {
 			e.printStackTrace();
 		}
 		return null;

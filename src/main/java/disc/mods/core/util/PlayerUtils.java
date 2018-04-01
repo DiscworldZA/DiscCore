@@ -3,7 +3,6 @@ package disc.mods.core.util;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 
 public class PlayerUtils {
