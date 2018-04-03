@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.server.FMLServerHandler;
 
 /***
- * 
+ *
  * @author DiscworldZA
  * @reference Fireball1725/firelib
  */

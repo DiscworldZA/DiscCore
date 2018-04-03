@@ -1,18 +1,17 @@
 package disc.mods.core.util;
 
-import java.util.Locale;
-
+import disc.mods.core.DiscMod;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
 
-import disc.mods.core.DiscMod;
-import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
-import net.minecraftforge.fml.relauncher.Side;
+import java.util.Locale;
 
 /***
- * 
+ *
  * @author DiscworldZA
  * @reference Fireball1725/firelib
  */

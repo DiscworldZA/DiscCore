@@ -1,12 +1,12 @@
 package disc.mods.core.util;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
-
-import org.apache.commons.io.FilenameUtils;
 
 public class FileIOHelper {
 	public enum FileType {
