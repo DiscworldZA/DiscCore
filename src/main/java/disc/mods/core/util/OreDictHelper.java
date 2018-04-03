@@ -1,11 +1,10 @@
 package disc.mods.core.util;
 
-import java.util.Collection;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
 
 public class OreDictHelper {
 	@Nullable

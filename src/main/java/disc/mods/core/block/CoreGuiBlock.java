@@ -8,12 +8,12 @@ import net.minecraft.world.World;
 public abstract class CoreGuiBlock extends CoreBlock {
 	protected int GuiID;
 
-	public CoreGuiBlock(String Name) {
-		super(Material.IRON, Name);
+	public CoreGuiBlock(String name, String resourcePath) {
+		super(name, Material.IRON, resourcePath);
 	}
 
-	public CoreGuiBlock(Material mat, String Name) {
-		super(mat, Name);
+	public CoreGuiBlock(String name, Material mat, String resourcePath) {
+		super(name, mat, resourcePath);
 	}
 
 	public void SetGuiID(int ID) {

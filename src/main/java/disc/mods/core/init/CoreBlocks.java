@@ -1,12 +1,11 @@
 package disc.mods.core.init;
 
 import disc.mods.core.block.CoreBlock;
-import disc.mods.core.block.TestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
 public enum CoreBlocks implements IDiscBlocks {
-	TestBlock(TestBlock.class);
+	;
 
 	private final Class<? extends CoreBlock> blockClass;
 	private final Class<? extends ItemBlock> itemBlockClass;

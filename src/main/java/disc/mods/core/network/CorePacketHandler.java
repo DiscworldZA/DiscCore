@@ -1,7 +1,5 @@
 package disc.mods.core.network;
 
-import java.util.List;
-
 import disc.mods.core.util.DimensionHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IContainerListener;
@@ -12,6 +10,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.List;
 
 public abstract class CorePacketHandler {
 	public final SimpleNetworkWrapper SimpleNetwork;
@@ -46,7 +46,7 @@ public abstract class CorePacketHandler {
 	 * @param listeners
 	 * @credit gigaherz
 	 * @see <a href=
-	 *      "https://github.com/gigaherz/Ender-Rift/blob/master/src/main/java/gigaherz/enderRift/generator/ContainerGenerator.java#L68-L69">link</a>
+	 * "https://github.com/gigaherz/Ender-Rift/blob/master/src/main/java/gigaherz/enderRift/generator/ContainerGenerator.java#L68-L69">link</a>
 	 */
 	public void SendToEntityListeners(IMessage message, List<IContainerListener> listeners) {
 		listeners.stream().filter(watcher -> watcher instanceof EntityPlayerMP)

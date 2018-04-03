@@ -1,23 +1,18 @@
 package disc.mods.core.proxy.base;
 
+import disc.mods.core.DiscMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppedEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 /***
- * 
+ *
  * @author DiscworldZA
  * @reference Fireball1725/firelib
  */
@@ -28,7 +23,7 @@ public interface IProxyBase {
 	}
 
 	default void preInitEnd(FMLPreInitializationEvent e) {
-
+		NetworkRegistry.INSTANCE.registerGuiHandler(DiscMod.instance(), DiscMod.instance().getGuiHandler());
 	}
 
 	default void initStart(FMLInitializationEvent e) {

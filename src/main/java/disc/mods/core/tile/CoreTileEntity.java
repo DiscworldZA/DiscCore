@@ -13,8 +13,6 @@ public abstract class CoreTileEntity extends TileEntity implements ITickable {
 	public CoreTileEntity() {
 	}
 
-	public abstract void Register();
-
 	@Override
 	public void readFromNBT(NBTTagCompound nbtTagCompound) {
 		super.readFromNBT(nbtTagCompound);
@@ -73,4 +71,5 @@ public abstract class CoreTileEntity extends TileEntity implements ITickable {
 	public boolean hasOwner() {
 		return owner != null && owner.length() > 0;
 	}
+
 }
