@@ -19,4 +19,9 @@ public interface IProxy extends IProxyBase {
 	default void registerEventHandlers() {
 
 	}
+
+	@Override
+	default void registerEntities() {
+
+	}
 }

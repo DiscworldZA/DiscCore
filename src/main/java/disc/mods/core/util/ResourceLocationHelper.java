@@ -3,7 +3,7 @@ package disc.mods.core.util;
 import net.minecraft.util.ResourceLocation;
 
 public class ResourceLocationHelper {
-	public static ResourceLocation getResourceLocation(String modId, String path) {
+	private static ResourceLocation getResourceLocation(String modId, String path) {
 		return new ResourceLocation(modId, path);
 	}
 

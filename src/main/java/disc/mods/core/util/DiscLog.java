@@ -28,39 +28,42 @@ public class DiscLog {
 	}
 
 	private void log(Level logLevel, Object message) {
-		this.logger.log(logLevel, "-->" + String.valueOf(message));
+		this.logger.log(logLevel, formatMessage(message));
 	}
 
 	public void all(Object message) {
-		log(Level.ALL, message);
+		log(Level.ALL, formatMessage(message));
 	}
 
 	public void debug(Object message) {
-		log(Level.DEBUG, message);
+		log(Level.DEBUG, formatMessage(message));
 	}
 
 	public void trace(Object message) {
-		log(Level.TRACE, message);
+		log(Level.TRACE, formatMessage(message));
 	}
 
 	public void fatal(Object message) {
-		log(Level.FATAL, message);
+		log(Level.FATAL, formatMessage(message));
 	}
 
 	public void error(Object message) {
-		log(Level.ERROR, message);
+		log(Level.ERROR, formatMessage(message));
 	}
 
 	public void warn(Object message) {
-		log(Level.WARN, message);
+		log(Level.WARN, formatMessage(message));
 	}
 
 	public void info(Object message) {
-		log(Level.INFO, message);
+		log(Level.INFO, formatMessage(message));
 	}
 
 	public void off(Object message) {
-		log(Level.OFF, message);
+		log(Level.OFF, formatMessage(message));
 	}
 
+	private String formatMessage(Object msg) {
+		return logger.getName() + " --> " + String.valueOf(msg);
+	}
 }

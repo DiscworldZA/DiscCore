@@ -73,9 +73,11 @@ public abstract class DiscMod {
 		final Stopwatch stopwatch = Stopwatch.createStarted();
 		getLogger().debug("preInit Started");
 
+		proxy().preInitStart(event);
 		proxy().registerEventHandler(new Registrar());
 		proxy().initConfiguration(event);
-		proxy().preInitStart(event);
+		this.getLogger().info("registering Entities");
+		proxy().registerEntities();
 		proxy().preInitEnd(event);
 
 		getLogger().debug("preInit Ending");

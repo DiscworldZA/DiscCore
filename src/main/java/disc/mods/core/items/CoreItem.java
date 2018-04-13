@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CoreItem extends Item implements IItemRenderer {
-	protected final String resourcePath;
+	private final String resourcePath;
 	public String Name;
 
 	public CoreItem(String name, String resourcePath) {

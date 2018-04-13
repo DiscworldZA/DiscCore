@@ -68,6 +68,8 @@ public interface IProxyBase {
 
 	void registerCapabilities();
 
+	void registerEntities();
+
 	default void registerEventHandler(Object handler) {
 		MinecraftForge.EVENT_BUS.register(handler);
 	}
